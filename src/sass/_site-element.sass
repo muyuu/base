@@ -1,0 +1,86 @@
+// ------------------------------------------------
+// 各要素
+// ------------------------------------------------
+body
+  background: $bg1
+  color: $font1
+  font-size: 87.5%
+  line-height: 1.6
+  letter-spacing: 0.1em
+  font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif
+
+a, a:visited
+  color: $lnk1
+  text-decoration: none
+  // border-bottom: 1px solid $lnk1
+  &:hover, &:focus, &:active
+    color: $lnk1
+    text-decoration: none
+
+p
+  margin-top: 10px
+
+img
+  vertical-align: bottom
+  max-width: 100%
+  max-height: 100%
+
+ul,ol
+  margin: 0
+  padding: 0
+
+ul
+  li
+    list-style-type: none
+    // margin-left: 1.4em
+ol
+  list-style: none
+  counter-reset: li
+  li
+    position: relative
+    padding-left: 20px
+    &:before
+      content: counter(li)"."
+      counter-increment: li
+      padding-right: 6px
+      margin-left: -20px
+
+@if $support-ie7
+  *:first-child+html ol li
+    list-style-type: decimal !important
+    list-style-position: outside !important
+    margin-left: 24px
+    padding-left: 0
+
+blockquote
+  // blockquoteは大抵pとかのdisplay:blockを使う要素を内包するから、
+  // パディングでマージンの相殺が出ない用にして、上マージンを追加(上で追加してる)
+  // ただし、内包する要素の一番最初のコンテンツのマージンは取っておいた方が良いだろうね
+  padding: 5px 1em
+  border-left: 4px solid #efefef
+  >*:first-child
+    margin-top: 0
+
+pre
+  padding: 0.4em
+  background: #f9f9f9
+  color: #644
+
+input, textarea
+  box-sizing: border-box
+
+// --------------------------------
+// table
+// --------------------------------
+.table
+  width: 100%
+  thead,tbody
+    th,td
+      padding: 1em
+      text-align: left
+      border-bottom: 1px solid #efefef
+  thead
+    tr
+      th,td
+        font-weight: bold
+        background: #efefef

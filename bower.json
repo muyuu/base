@@ -1,0 +1,13 @@
+{
+  "name": "antibase",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules"
+  ],
+  "devDependencies": {
+    "jquery": "1.9.1",
+    "pocket": "*",
+    "labjs": "*"
+  }
+}

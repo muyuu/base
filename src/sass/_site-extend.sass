@@ -1,0 +1,95 @@
+%clrfx
+  @include clrfx
+.col
+  float: left
+
+%box-radius
+  -webkit-border-radius: 2px
+  border-radius: 2px
+
+%blockShadow01
+  @include shadow(0px, 0px, 5px, #e0cdca)
+%blockShadow02
+  @include shadow(0px, 0px, 5px, #ffd7d9)
+
+%dottedBorder
+  border-bottom: 2px dotted $gray01
+
+%list
+  li
+    a
+      display: block
+      padding: 10px 20px 10px 10px
+      text-align: left
+
+// サイズ
+%small
+  &.small
+    font-size: 80%
+
+
+// 見出し
+%bgColorValiation
+  &.blue
+    background: $blue
+  &.lightblue
+    background: $lightblue
+    color: $darkblue
+  &.darkblue
+    background: $darkblue
+  &.pink
+    background: $pink
+  &.green
+    background: $green
+  &.yellow
+    background: $yellow
+
+
+%txtColorValiation
+  &.blue
+    color: $blue
+  &.lightblue
+    color: $lightblue
+  &.darkblue
+    color: $darkblue
+  &.pink
+    color: $pink
+  &.green
+    color: $green
+  &.yellow
+    color: $yellow
+
+%borderColorValiation
+  &.blue
+    border-color: $blue
+  &.lightblue
+    border-color: $lightblue
+  &.pink
+    border-color: $pink
+  &.green
+    border-color: $green
+  &.yellow
+    border-color: $yellow
+
+%h_num
+  padding: 4px 0 6px 30px
+  background: no-repeat left top
+  -webkit-background-size: (54px / 2)
+  background-size: (54px / 2)
+
+%h_first_content
+  margin-top: 0
+
+// 画像が右に配置されているタイプのフロート
+%col2_rightImg
+  @extend %clrfx
+  margin-top: 10px
+  .txt,.img
+    float: left
+    width: 70%
+
+  .img
+    width: 28%
+    margin-left: 2%
+
+
