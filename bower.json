@@ -6,8 +6,11 @@
     "node_modules"
   ],
   "devDependencies": {
-    "jquery": "1.9.1",
-    "pocket": "*",
-    "labjs": "*"
+    "jquery": "1.11.0"
+  },
+  "exportsOverride": {
+    "jquery": {
+      "": "*.js*"
+    }
   }
 }

@@ -1,122 +1,144 @@
 module.exports = (grunt) ->
 
-  grunt.loadNpmTasks('grunt-contrib-coffee')
-  grunt.loadNpmTasks('grunt-contrib-connect')
-  grunt.loadNpmTasks('grunt-contrib-jade')
-  grunt.loadNpmTasks('grunt-contrib-jshint')
-  grunt.loadNpmTasks('grunt-contrib-uglify')
-  grunt.loadNpmTasks('grunt-contrib-sass')
-  grunt.loadNpmTasks('grunt-contrib-watch')
-  grunt.loadNpmTasks('grunt-contrib-yuidoc')
-
-  GRUNT_CHANGED_PATH = '.grunt-changed-file'
-  if grunt.file.exists GRUNT_CHANGED_PATH
-    changed = grunt.file.read GRUNT_CHANGED_PATH
-    grunt.file.delete GRUNT_CHANGED_PATH
-    changed_only = (file)-> file is changed
-  else
-    changed_only = -> true
-
-  data = {}
+  # Load grunt tasks automatically
+  require('load-grunt-tasks') grunt
 
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
 
+    # Bower
     bower:
       install:
         options:
+          targetDir: 'public/assets/libs'
+          layout: 'byComponent'
+          install: true
+          verbose: false
           cleanTargetDir: true
           cleanBowerDir: true
-          install: true
-          copy: true
 
     # local Server
     connect:
       server:
         options:
-          port: 9000
+          base: 'public'
+          port: 3000
+          livereload: true
+          open: true
 
-    # watch
-    watch:
-      jade:
-        files: '**/*.jade'
-        tasks: 'jade'
-      html:
-        files: '**/*.html'
-        options:
-          livereload: true
-          nospawn: true
-      sass:
-        files: '**/*.s*ss'
-        tasks: 'sass'
-      css:
-        files: 'assets/css*.css'
-        options:
-          livereload: true
-          nospawn: true
-      coffee:
-        files: 'assets/**/*.coffee'
-        tasks: 'coffee'
-      js:
-        files: 'assets/js/*.js'
-        options:
-          livereload: true
-          nospawn: true
-
-    # jade
-    jade:
-      files:
-        options: pretty: true
-        expand : true
-        cwd    : 'src/' # 対象フォルダ
-        src    : ['**/*.jade', '!**/_*.jade']
-        dest   : '' # コンパイルフォルダ
-        ext    : '.html'
-        filter : changed_only
+    # estwatch
+    esteWatch:
+      options:
+        dirs: ["src/**/"]
+        livereload:
+          enabled: true
+          port: 35729
+          extensions: ['jade','sass','scss','coffee']
+      jade: (path) ->
+        # パーシャルファイルに変更があった場合は
+        # そのパーシャルファイルがあるフォルダ配下のファイルを対象とする
+        lastSlashPos = path.lastIndexOf "/"
+        fileName = path.substring lastSlashPos + 1, path.length
+        if fileName.indexOf("_") is 0
+          dirName = path.substring(0, lastSlashPos).replace "src/", ""
+          if dirName is "src" # root dir
+            dirName = "**"
+          file = [dirName + "/*.jade", "!" + dirName + "/_*.jade"]
+        else
+          file = path.replace "src/", ""
+        grunt.log.write file
+        grunt.config 'jade.options.pretty', true
+        grunt.config 'jade.compile.files', [
+          expand : true
+          src    : file
+          cwd    : 'src/'
+          dest   : 'public/'
+          ext    : '.html'
+        ]
+        'jade'
+      coffee: (path) ->
+        # fileName = path.replace "src/coffee/", ""
+        # grunt.config 'coffee.compile.options',
+        #   bare: true
+        #   sourceMap: false
+        #   # sourceMapDir: ''
+        # grunt.config 'coffee.compile.files', [
+        #   expand: true
+        #   src: fileName
+        #   cwd: 'src/coffee/'
+        #   dest: 'public/assets/js/'
+        #   ext: '.js'
+        # ]
+        'coffee:compileJoined'
+      js: (path) ->
+        'jshint'
+      sass: (path) ->
+        'sass:compile'
+      # scss: (path) ->
+      #   'sass:compile'
 
     # sass
     sass:
-      options:
-        sourcemap: true
-        style: 'expanded'
       compile:
-        files: 'assets/css/style.css':'src/sass/style.sass'
-      filter : changed_only
+        options:
+          sourcemap: true
+          style: 'expanded'
+        files:
+          'public/assets/css/style.css': 'src/sass/style.sass'
+      build:
+        options:
+          style: 'compressed'
+        files:
+          'public/assets/css/style.css': 'src/sass/style.sass'
 
     # coffee
     coffee:
-      files:
-        expand : true
-        cwd    : 'src/coffee/' # 対象フォルダ
-        src    : '*.coffee' # 対象ファイル
-        dest   : 'js/' # コンパイルフォルダ
-        ext    : '.js' # コンパイル後の拡張子
-        filter : changed_only
-
-    # 圧縮
-    uglify:
-      build:
-        files:
-          "assets/js/*.min.js": ["assets/js/*.js"]
-
-    # ドキュメント生成
-    yuidoc:
-      compile:
-        name: "<%= pkg.name %>"
-        description: "<%= pkg.description %>"
-        version: "<%= pkg.version %>"
-        url: "<%= pkg.homepage %>"
+      compileJoined:
         options:
-          paths: "assets/js/"
-          outdir: "docs/"
+          bare: true
+        files:
+          'public/assets/js/app.js': 'src/coffee/**/*.coffee'
 
-  grunt.event.on 'watch', (action, changed)->
-    if action is 'changed'
-      if not /(layout)/.test changed
-        grunt.file.write GRUNT_CHANGED_PATH, changed
+    # jshint
+    jshint:
+      allFiles: [ 'public/assets/js/app.js' ]
+      options:
+        jshintrc: '.jshintrc'
+
+    # comp
+    uglify:
+      generated:
+        options:
+          mangle: false
+
+    useminPrepare:
+      html: 'index.html'
+      options:
+        dest: './'
+
+    # Performs rewrites based on rev and the useminPrepare configuration
+    usemin:
+      html: "index.html"
+      options:
+        dirs: ['./']
+
+    clean:
+      tmpfiles: '.tmp'
 
 
-  grunt.registerTask "default", ["connect", "watch", 'configureProxies','connect:livereload']
-
-  # "default" でデフォルトのタスクを設定
-  grunt.registerTask "release", ["uglify:build", "coffee:build", "yuidoc"]
+  # Bower Setup
+  grunt.registerTask "init", ["bower:install"]
+  # start local server
+  grunt.registerTask "default", ["connect", "esteWatch"]
+  # start watch
+  grunt.registerTask "watch", ["esteWatch"]
+  # build task
+  grunt.registerTask "buildcheck", ["useminPrepare"]
+  grunt.registerTask "build", [
+    "useminPrepare"
+    "concat"
+    "uglify"
+    "usemin"
+    "sass:build"
+    "clean"
+  ]

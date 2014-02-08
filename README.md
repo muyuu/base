@@ -4,33 +4,59 @@ anti base
 It's poilerplate for Web frotend product.
 
 ## grunt
+- grunt
+- grunt-bower-task
+- grunt-contrib-clean
 - grunt-contrib-coffee
 - grunt-contrib-connct
 - grunt-contrib-jade
 - grunt-contrib-jshint
 - grunt-contrib-sass
 - grunt-contrib-uglify
-- grunt-contrib-watch
-- grunt-contrib-yuidoc
+- grunt-este-watch
+- grunt-usemin
+- load-grunt-tasks
+- time-grunt
 
 ## Using bower package
 - jQuery
-- LAB.js
-- Pocket.js
 
-LAB.js is JavaScript async library.
+## Usage
+- bower install and setting.
+````
+grunt init
+````
 
-Pocket.js is small utility library.
+- start localserver and file watch
+````
+grunt
+````
 
-set these library
-    assets/libs/
+start watch and localserver.
 
-
-## css, img, js
-    assets/
-      css/
-      img/
-      js/
+## Direcotory Summary
+````
+Project_root
+  public
+    dir
+      index.html
+    assets
+      js
+        app.js
+      css
+        sryle.css
+      img
+      lib // bower installed library
+    index.html
+  src
+    dir
+      index.jade
+    coffee
+      **.coffee
+    sass
+      style.sass
+    index.jade
+````
 
 ## jade
 jade is in src directory. and direcotory stracture is same as html.

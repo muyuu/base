@@ -1,0 +1,75 @@
+// リンクリスト用の→矢印
+@mixin linkListArrow( $size: 10px, $right: 10px, $border-size: 2px, $color: #333)
+  &:after
+    position: absolute
+    content: ""
+    display: inline-block
+    right: $right
+    top: 50%
+    width: $size
+    height: $size
+    margin-top: -0.5em
+    border-top: $border-size solid $color
+    border-right: $border-size solid $color
+    -webkit-transform: rotate(45deg)
+    transform: rotate(45deg)
+
+// .selectorA
+//     // 四つ角を指定。
+//     @include border-radius("5px 10px 20px 5px")
+//
+// .selectorB
+//     // 左上を5pxの角丸に指定。
+//     @include border-radius("5px", "top-left")
+//
+
+@mixin border-radius($property-value, $property-type: shorthand)
+  // Firefox3.6以下のtopleftやbottomrightなどの
+  // 1コーナーのみを指定する記述には対応していません。
+  $property: border-radius
+  @if $property-type != shorthand
+    $property: border-#{$property-type}-radius
+    // e.g. 'top-left', 'bottom-right'
+  // OUTPUT
+  #{$property}: #{$property-value}
+
+
+// ---------------------------------------------------------
+// transition
+// ---------------------------------------------------------
+@mixin transition ( $pro, $sec, $delay, $func )
+  -webkit-transition: $pro $sec $delay $func
+  transition: $pro $sec $delay $func
+
+
+// ---------------------------------------------------------
+// box-sizing
+// ---------------------------------------------------------
+@mixin box-sizing ( $val )
+  -moz-box-sizing: $val
+  -ms-box-sizing: $val
+  box-sizing: $val
+
+
+// ---------------------------------------------------------
+// box-shadow
+// ---------------------------------------------------------
+@mixin box-shadow( $off-y, $off-x, $blur, $color)
+  -moz-box-shadow: $off-y $off-x $blur $color
+  -webkit-box-shadow: $off-y $off-x $blur $color
+  box-shadow: $off-y $off-x $blur $color
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#{$color},direction=135,strength=2,enabled=true)"
+
+
+// ---------------------------------------------------------
+// Gradiation
+// ---------------------------------------------------------
+@mixin gradient($baseColor, $toColor)
+  background-color: $baseColor
+  background-image: -moz-linear-gradient(top, $baseColor, $toColor)
+  background-image: -webkit-gradient(linear,left top,left bottom, color-stop(0, $baseColor),color-stop(1, $toColor))
+  background-image: linear-gradient(top,$baseColor, $toColor)
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$baseColor}', EndColorStr='#{$toColor}')
+
+
+

@@ -1,33 +1,31 @@
 @charset "utf-8"
 
-// 使用Compassライブラリ
-// @import "compass/css3"
 // 設定ファイル
 @import "setting"
+
 // 外部ライブラリ
-// @import "../vendors/normalize-scss/normalize"
+@import "common/modularized-normalize-scss/normalize"
 // @import "common/reset"
+
 // 共通ライブラリ
 @import "common/utility"
 @import "common/utility-css3"
 
-@import "site-element"
+@import "element"
 // 要素とか
-// @import "common/grid"
-// @import "common/btn"
+@import "common/grid"
+@import "common/btn"
+
 // サイト固有ファイル
-@import "site-extend"
-// Extend用
-@import "site-layout"
-// レイアウト
-@import "site-module-heading"
-@import "site-module-sprite"
-@import "site-module"
-// 各種モジュール
-// @import "site-responsive"  // レスポンシブ用
+@import "extend"
+@import "layout"
+@import "module-heading"
+@import "module-sprite"
+@import "module"
+@import "responsive"
 
 // プロトタイプ作成用
 // @import "common/prototype"
 
 // 別途特定のページ用ファイル
-// @import "site-top"
+// @import top"
