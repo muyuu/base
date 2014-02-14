@@ -9,10 +9,10 @@ build:
   - "sass:compile"
   - "notify:sass"
 
-destcheck:
+distcheck:
   - 'useminPrepare'
 
-dest:
+dist:
   - "useminPrepare"
   - "concat"
   - "uglify"
