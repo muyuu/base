@@ -3,19 +3,21 @@ anti base
 
 It's poilerplate for Web frotend product.
 
-## grunt
+## grunt plugin
 - grunt
 - grunt-bower-task
 - grunt-contrib-clean
 - grunt-contrib-coffee
-- grunt-contrib-connct
+- grunt-contrib-concat
+- grunt-contrib-connect
 - grunt-contrib-jade
 - grunt-contrib-jshint
 - grunt-contrib-sass
 - grunt-contrib-uglify
 - grunt-este-watch
+- grunt-notify
 - grunt-usemin
-- load-grunt-tasks
+- load-grunt-config
 - time-grunt
 
 ## Using bower package
