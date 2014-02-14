@@ -1,3 +1,3 @@
-$(()->
-  $('body').append "<p>test_main</p>"
-)
+(()->
+  console.log "controller/main.js"
+)()

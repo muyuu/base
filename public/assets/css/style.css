@@ -490,6 +490,9 @@ input, textarea {
   width: 1050px;
   margin: auto;
 }
+.container .innerblock {
+  padding: 1em;
+}
 
 .row {
   width: 100%;

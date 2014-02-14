@@ -8,11 +8,18 @@ html
 
   body
     block content
-      h1 anti base
-      p html boilerplate base.
-      .test test
+      .container
+        .innerblock
+          h1 anti base
+          p html boilerplate base.
+          .test
+            a(href="/contact/") contact
 
+  // build:js /js/app.min.js
   script(src="/assets/libs/jquery/jquery.min.js")
   script(src="/assets/js/app.js")
+  script(src="/assets/js/controller/main.js")
+  // endbuild
+
 
 

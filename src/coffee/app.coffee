@@ -1,3 +1,3 @@
 $( ()->
-  $('body').append("<p>add for jQuery</p>")
+  console.log "app.js"
 )
