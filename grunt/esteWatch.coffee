@@ -19,6 +19,7 @@ module.exports = (grunt) ->
           file = path.replace "src/", ""
         # grunt.log.write file
         grunt.config 'jade.options.pretty', true
+        grunt.config 'jade.options.basedir', 'src/'
         grunt.config 'jade.compile.files', [
           expand : true
           src    : file
