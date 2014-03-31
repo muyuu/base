@@ -1,5 +1,5 @@
 module.exports = (grunt) ->
-  allFiles: [ 'public/assets/js/app.js' ]
+  allFiles: [ 'dist/assets/js/app.js' ]
   options:
     jshintrc: '.jshintrc'
 

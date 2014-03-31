@@ -1,6 +1,6 @@
 module.exports = (grunt) ->
   tmpfiles: [
     '.tmp'
-    'public/assets/css/style.css.map'
+    'dist/assets/css/style.css.map'
   ]
 

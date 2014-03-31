@@ -1,7 +1,7 @@
 module.exports =
   server:
     options:
-      base: 'public'
+      base: 'dist'
       port: 3000
       livereload: true
       # open: true

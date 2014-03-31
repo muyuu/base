@@ -24,7 +24,7 @@ module.exports = (grunt) ->
           expand : true
           src    : file
           cwd    : 'src/'
-          dest   : 'public/'
+          dest   : 'dist/'
           ext    : '.html'
         ]
         ['jade', 'notify:jade']
@@ -37,7 +37,7 @@ module.exports = (grunt) ->
           expand : true
           src    : filename
           cwd    : 'src/coffee/' # 対象フォルダ
-          dest   : 'public/assets/js/' # コンパイルフォルダ
+          dest   : 'dist/assets/js/' # コンパイルフォルダ
           ext    : '.js'
         ]
         ['coffee:compile', 'notify:coffee']
@@ -47,6 +47,6 @@ module.exports = (grunt) ->
         grunt.config 'sass.options.sourcemap', true
         grunt.config 'sass.options.style', 'expanded'
         grunt.config 'sass.compile.files', [
-          'public/assets/css/style.css': 'src/sass/style.sass'
+          'dist/assets/css/style.css': 'src/sass/style.sass'
         ]
         ['sass:compile', 'notify:sass']

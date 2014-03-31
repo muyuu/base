@@ -4,5 +4,5 @@ module.exports = (grunt) ->
       sourceMap: true
       bare: true
     files:
-      'public/assets/js/app.js': 'src/coffee/**/*.coffee'
+      'dist/assets/js/app.js': 'src/coffee/**/*.coffee'
 
