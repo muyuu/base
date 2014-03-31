@@ -3,22 +3,22 @@ html
   head
     meta(charset='UTF-8')
     meta(name="viewport",content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
-    title anti base layout
+    title page title | site name
     link(rel="stylesheet",href="/assets/css/style.css")
 
   body
     block content
       .container
         .innerblock
-          h1 anti base
+          h1 page title
           p html boilerplate base.
           .test
             a(href="/contact/") contact
 
   // build:js /js/app.min.js
   script(src="/assets/libs/jquery/jquery.min.js")
+  script(src="/assets/js/extend.js")
   script(src="/assets/js/app.js")
-  script(src="/assets/js/controller/main.js")
   // endbuild
 
 
