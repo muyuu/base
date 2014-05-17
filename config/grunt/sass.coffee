@@ -4,9 +4,9 @@ module.exports = (grunt) ->
       sourcemap: true
       style: 'expanded'
     files:
-      'dist/assets/css/style.css': 'src/sass/style.sass'
+      '<%= dist %><%= assets_dir %><%= css_dir %>style.css': '<%= src %><%= sass_dir %>style.sass'
   build:
     options:
       style: 'compressed'
     files:
-      'dist/assets/css/style.css': 'src/sass/style.sass'
+      '<%= dist %><%= assets_dir %><%= css_dir %>style.css': '<%= src %><%= sass_dir %>style.sass'

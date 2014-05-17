@@ -5,7 +5,7 @@
   "bitwise": true,
   "camelcase": true,
   "curly": true,
-  "devel": true, // console alertを許可
+  "devel": true,
   "eqeqeq": true,
   "forin": true,
   "globals": {
@@ -14,7 +14,7 @@
   },
   "immed": true,
   "indent": 2,
-  "jquery": true, // jQueryのグローバルオブジェクトを許可
+  "jquery": true,
   "latedef": true,
   "newcap": true,
   "noarg": true,
@@ -28,5 +28,5 @@
   "globals": {
     "angular": false
   },
-  "laxcomma": true // カンマを最初に書いても良いとする
+  "laxcomma": true
 }

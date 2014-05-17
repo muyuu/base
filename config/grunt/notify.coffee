@@ -1,11 +1,11 @@
 module.exports =
   sass:
     options:
-      title: 'sassさすさす'
+      title: 'sass'
       message: ",｡･:*:･ﾟ'☆,｡･:*:\nコンパイル成功(￣^￣)ゞ"
   coffee:
     options:
-      title: 'coffeeごくごく'
+      title: 'coffee'
       message: ":*:･｡,☆ﾟ'･:*:･｡, ,｡･:*:･ﾟ'☆,｡･:*:\nコンパイル成功Ｏ(≧▽≦)Ｏ"
   jade:
     options:
