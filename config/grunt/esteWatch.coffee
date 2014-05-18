@@ -9,24 +9,22 @@ module.exports = (grunt) ->
 
     # パーシャルファイルに変更があった場合は
     # そのパーシャルファイルがあるフォルダ配下のファイルを対象とする
-
     lastSlashPos = path.lastIndexOf "/"
     fileName = path.substring lastSlashPos + 1, path.length
+    dirName = path.substring(0, lastSlashPos + 1).replace "<%= src %>", ""
 
-    # partial file
+
     if fileName.indexOf("_") is 0
-      grunt.log.write src
-      dirName = path.substring(0, lastSlashPos).replace "src/", ""
-      if dirName is "src" # root dir
-        dirName = "**"
-      file = [dirName + "/*.jade", "!" + dirName + "/_*.jade"]
+      if dirName is "" # root dir
+        dirName = ""
+      file = [dirName + "**/*.jade", "!" + dirName + "**/_*.jade"]
     else
       file = path.replace 'src/', ""
 
-    grunt.log.write file
+    grunt.config 'jade.options.data', (dest, src)->
+      txt = dest.replace("dist/", "txt/").replace("html", "json")
+      grunt.file.readJSON txt
 
-    grunt.config 'jade.options.pretty', true
-    grunt.config 'jade.options.basedir', '<%= src %>'
     grunt.config 'jade.compile.files', [
       expand : true
       src    : file

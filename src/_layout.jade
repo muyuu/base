@@ -4,7 +4,7 @@ html
     meta(charset='UTF-8')
     meta(name="viewport",content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
     block meta
-      title page title | site name
+      title #{title}
       meta(name="description",content="")
       meta(name="keywords",content="")
     block add_css_before
@@ -34,7 +34,7 @@ html
               .main.col9.inner
                 block main
                   h1 page title
-                  p html boilerplate base.
+                  p html boilerplate.
                   .test
                     a(href="/contact/") contact
               .sub.col3.inner
