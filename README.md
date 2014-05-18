@@ -39,7 +39,13 @@ start watch and localserver.
 ## Direcotory Summary
 ````
 Project_root
-  public
+  config
+    grunt
+      alias.yaml
+      connect.coffee
+      ~
+    .jshintrc
+  dist
     dir
       index.html
     assets
@@ -58,11 +64,22 @@ Project_root
     sass
       style.sass
     index.jade
+  txt
+    index.json
+    dir
+      index.json
 ````
+
+## grunt task
+grunt task setting file is in 'config/grunt'. 
+
 
 ## jade
 jade is in src directory. and direcotory stracture is same as html.
 
 ## CoffeeScript
 CoffeeScript file is src/coffee
+
+## text file
+text data of each files set up 'txt' directory.
 
