@@ -1,17 +1,17 @@
 {
   "name": "antibase",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": "https://github.com/muyuu/base",
   "ignore": [
     "**/.*",
     "node_modules"
   ],
   "devDependencies": {
-    "jquery": "1.11.0"
+    "jquery": "~1"
   },
   "exportsOverride": {
     "jquery": {
-      "": "*.js*"
+      "": "dist/jquery.min.js"
     }
   }
 }
