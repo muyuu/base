@@ -4,7 +4,7 @@ module.exports = (grunt) ->
       bare: true
     expand: true
     flatten: false
-    src: ['*.coffee']
+    src: ['**/*.coffee']
     cwd: '<%= src %><%= coffee_dir %>'
     dest: '<%= dist %><%= assets_dir %><%= js_dir %>'
     ext: (ext)->
