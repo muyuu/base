@@ -1,6 +1,6 @@
 module.exports = (grunt) ->
   options:
-    dirs: ['<%= src %>**/', '<%= dist %>**/']
+    dirs: ['<%= src %>**/', '<%= dist %><%= assets %><%= js_dir %>**/']
     livereload:
       enabled: true
       port: 35729
