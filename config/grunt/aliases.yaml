@@ -6,16 +6,6 @@ default:
 init:
   - 'bower:install'
 
-hint:
-  - 'jshint'
-
-build:
-  - "sass:compile"
-  - "notify:sass"
-
-distcheck:
-  - 'useminPrepare'
-
 dist:
   - "sass:dist"
   - "useminPrepare"
