@@ -42,11 +42,11 @@ html
 
       .pageFooter
 
-  // build:js /js/app.min.js
-  block add_js_libs
   script(src="/assets/libs/jquery/jquery.min.js")
-  script(src="/assets/js/controller/main.js")
+  block add_js_libs
+  // build:js /assets/js/app.min.js
   script(src="/assets/js/extend.js")
+  script(src="/assets/js/controller/main.js")
   script(src="/assets/js/app.js")
   block add_js
   // endbuild
