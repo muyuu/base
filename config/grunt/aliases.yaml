@@ -17,9 +17,9 @@ distcheck:
   - 'useminPrepare'
 
 dist:
+  - "sass:dist"
   - "useminPrepare"
   - "concat"
   - "uglify"
   - "usemin"
-  - "sass:build"
   - "clean"
