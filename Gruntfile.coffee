@@ -23,6 +23,7 @@ module.exports = (grunt) ->
       js_dir: 'js/'
       vendor_dir: 'libs/'
       config_dir: 'config/'
+      txt_dir: 'txt/'
   )
 
 
