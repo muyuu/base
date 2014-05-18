@@ -1,10 +1,10 @@
-/*
-# Array.forEach - JavaScript | MDN
-# https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-# Production steps of ECMA-262, Edition 5, 15.4.4.18
-# Reference: http://es5.github.com/#x15.4.4.18
-*/
 
+/*
+ * Array.forEach - JavaScript | MDN
+ * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+ * Production steps of ECMA-262, Edition 5, 15.4.4.18
+ * Reference: http://es5.github.com/#x15.4.4.18
+ */
 if (!Array.prototype.forEach) {
   Array.prototype.forEach = function(callback, thisArg) {
     var O, T, k, kValue, len;
