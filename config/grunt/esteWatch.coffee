@@ -3,6 +3,7 @@ module.exports = (grunt) ->
     dirs: [
       '<%= src_dir %>**/'
       '<%= dist_dir %><%= assets_dir %><%= js_dir %>**/'
+      '<%= spec_dir %>**/'
     ]
 
     livereload:
@@ -41,10 +42,37 @@ module.exports = (grunt) ->
     ['jade', 'notify:jade']
 
   coffee: (path) ->
-    ['coffee:compileMulti', 'notify:coffee']
+    # specとsrcどちらのファイルかによってcwd dest を変える
+    srcFlg = path.indexOf 'src/'
+
+    if srcFlg is 0
+      fileName = path.replace "src/coffee/", ""
+      cwdStr = 'src/'
+      destStr = 'dist/assets/js/'
+
+    else
+      fileName = path.replace "spec/coffee/", ""
+      cwdStr = 'spec/'
+      destStr = 'spec/'
+
+    cwdStr = cwdStr + 'coffee/'
+
+    # option
+    grunt.config 'coffee.compile.options',
+      bare: true
+      sourceMap: false
+
+    grunt.config 'coffee.compile.files', [
+      expand : true
+      src    : fileName
+      cwd    : cwdStr
+      dest   : destStr
+      ext    : '.js'
+    ]
+    ['coffee']
 
   js: (path) ->
-    'jshint'
+    ['jasmine']
 
   sass: (path) ->
     ['sass:compile', 'notify:sass']
