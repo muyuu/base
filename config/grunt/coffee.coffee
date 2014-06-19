@@ -4,15 +4,14 @@ module.exports = (grunt) ->
       bare: true
     expand: true
     flatten: false
-    src: ['**/*.coffee']
-    cwd: '<%= src %><%= coffee_dir %>'
-    dest: '<%= dist %><%= assets_dir %><%= js_dir %>'
-    ext: (ext)->
-      ext.replace /coffee$/, 'js'
+    cwd: '<%= src_dir %><%= coffee_dir %>'
+    src: ['*.coffee']
+    dest: '<%= dist_dir %><%= assets_dir %><%= js_dir %>'
+    ext: '.js'
   compileJoined:
     options:
       sourceMap: true
       bare: true
     files:
-      '<%= dist %><%= assets_dir %><%= js_dir %>app.js': '<%= src %><%= coffee_dir %>**/*.coffee'
+      '<%= dist_dir %><%= assets_dir %><%= js_dir %>app.js': '<%= src_dir %><%= coffee_dir %>**/*.coffee'
 

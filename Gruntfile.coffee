@@ -12,8 +12,12 @@ module.exports = (grunt) ->
     # 各種設定
     data:
       port: 3000
-      dist: 'dist/'
-      src: 'src/'
+      vendor_dir: 'libs/'
+      config_dir: 'conf/'
+      txt_dir: 'txt/'
+      spec_dir: 'spec/'
+      dist_dir: 'dist/'
+      src_dir: 'src/'
       coffee_dir: 'coffee/'
       sass_dir: 'sass/'
       jade_dir: 'jade/'
@@ -21,9 +25,6 @@ module.exports = (grunt) ->
       img_dir: 'img/'
       css_dir: 'css/'
       js_dir: 'js/'
-      vendor_dir: 'libs/'
-      config_dir: 'config/'
-      txt_dir: 'txt/'
   )
 
 

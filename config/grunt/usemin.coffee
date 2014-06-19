@@ -1,5 +1,5 @@
 module.exports = (grunt) ->
-  html: '<%= dist %>**/*.html'
+  html: '<%= dist_dir %>**/*.html'
   options:
-    dirs: ['./<%= dist %>']
+    dirs: ['./<%= dist_dir %>']
 

@@ -1,7 +1,7 @@
 module.exports = (grunt, path) ->
   server:
     options:
-      base: '<%= dist %>'
+      base: '<%= dist_dir %>'
       port: '<%= port %>'
       livereload: true
       # open: true
