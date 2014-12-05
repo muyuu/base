@@ -1,0 +1,87 @@
+.box
+  padding: 50px 0
+  background: $white
+
+
+  &--caution
+    background: $lightOrange
+    color: $white
+
+  &--primary
+    background: $lightGreen
+
+
+.centerBox
+  text-align: center
+  &__item
+    display: inline-block
+    width: 400px
+    margin: 20px 50px
+    p
+      text-align: left
+
+
+.flipBox
+  position: relative
+  width: 461px
+  height: 248px
+  &__item
+    position: absolute
+
+
+.qaBox
+  // border-bottom: 1px solid $lightGray
+  &:first-child
+    border-top: 1px solid $lightGray
+  &__a,
+  &__q
+    position: relative
+    padding: 10px 50px 10px 50px
+    border: 1px solid $lightGray
+    border-top: none
+    cursor: pointer
+
+  &__a
+    display: none
+    background: #fff2e7
+    p
+      margin: 0 0 10px
+
+  &__ico
+    position: absolute
+    color: $white
+    display: inline-block
+    padding: 0px 8px
+    top: 5px
+    left: 5px
+    +rem(21)
+    text-transform: uppercase
+    &--q
+      background: $green
+    &--a
+      background: $darkOrange
+
+    &--open
+      background: url("img/icon_open.png") no-repeat left top
+    &--close
+      background: url("img/icon_close.png") no-repeat left top
+
+  &__toggle
+    display: block
+    width: 18px
+    height: 18px
+    position: absolute
+    right: 10px
+    top: 15px
+    border: 1px solid $lightGray
+
+  &__caption
+    margin: 0
+
+
+.postBox
+  margin-top: 40px
+
+  .archive__post &
+    &:first-child
+      margin-top: 0

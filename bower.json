@@ -6,12 +6,16 @@
     "**/.*",
     "node_modules"
   ],
-  "devDependencies": {
-    "jquery": "~1"
+  "dependencies": {
+    "jquery": "~1",
+    "underscore": "~1.7.0"
   },
-  "exportsOverride": {
+  "overrides": {
     "jquery": {
-      "": "dist/jquery.min.js"
+      "main": "dist/jquery.js"
+    },
+    "underscore": {
+      "main": "underscore.js"
     }
   }
 }

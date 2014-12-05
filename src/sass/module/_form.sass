@@ -1,0 +1,41 @@
+// --------------------------------
+// contactform
+// --------------------------------
+.input
+  margin: 20px 0 0 0
+
+  &__label
+    &:before
+      content: "●"
+      color: $orange
+      margin-right: 10px
+
+  &__select,
+  &__input
+    width: 480px
+
+  &__input
+    input,textarea
+      box-sizing: border-box
+      width: 100%
+      padding: 8px
+      border: 1px solid $orange
+
+
+  &__textarea
+    width: 100%
+    textarea
+      height: 200px
+
+  &__checkbox
+    input
+      color:  $orange
+
+.contactform
+  &__submit
+    margin: 10px 0
+    .submit
+      margin: 0 auto
+      +replaceImg("../img/btn_contact_submit01.png", 361px, 73px)
+      border: 0
+      padding-bottom: 0

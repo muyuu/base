@@ -1,0 +1,122 @@
+// ------------------------------------
+// ボタンmixin
+// ------------------------------------
+@mixin btn ( $start: #fff, $end: #e6e6e6, $color: #333 )
+  display: inline-block
+  padding: 4px 12px
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75)
+  border: 1px solid #bbb
+  border-radius: 4px
+  color: $color
+  line-height: 20px
+  text-align: center
+  vertical-align: middle
+  cursor: pointer
+  @include gradient ( $start, $end )
+  &:hover,&:active,&:focus
+    @include gradient ( darken($start, 4%), darken($end, 4%) )
+    color: $color !important
+  &:visited
+    color: $color
+
+// ボタン
+//
+// Styleguide 2
+
+// ボタン
+//
+// インラインのボタン
+//
+// Markup: - <a class="btn">more</a>
+//
+// :hover - hover
+//
+// Styleguide 2.1
+
+
+%beforeBtn
+  &:before
+    position: absolute
+    top: 50%
+    content: ""
+    display: block
+    width: 29px
+    height: 29px
+    margin-top: -15px
+    background: url("img/icon_arrow03.png") no-repeat left top
+
+.btnWrap
+  margin-top: 10px
+
+a.btn
+  &:hover
+    opacity: 1 !important
+    color: $white
+
+.btn
+  position: relative
+  display: inline-block
+  width: 288px
+  padding: 5px 10px
+  -webkit-border-radius: 6px
+  border-radius: 6px
+  color: $white
+  +rem(22)
+  text-align: center
+
+  // size
+  &--long
+    width: 320px
+
+  &--short
+    width: 200px
+
+  // text size
+  &--smallTxt
+    +rem(14)
+
+
+  &--primary
+    background: $darkGreen
+    text-decoration: none
+    box-shadow: 2px 2px 0 1px adjust-rgb($darkGreen, -0.2)
+    @extend %beforeBtn
+    &:hover
+      background: #78a92a
+
+
+
+  &--strong
+    width: 177px
+    margin: 0 4px
+    -webkit-border-radius: 10px
+    border-radius: 10px
+    background: $darkOrange
+    color: $white
+
+  &--white
+    width: 177px
+    margin: 0 4px
+    -webkit-border-radius: 10px
+    border-radius: 10px
+    background: $white
+    color: $green
+
+    .box--caution &
+      color: $darkOrange
+
+
+  &--orange
+    width: 286px
+    background: $darkOrange
+    color: $white
+    box-shadow: 2px 2px 0 1px adjust-rgb($darkOrange, -0.2)
+    @extend %beforeBtn
+    &:hover
+      background: #ff8d31
+
+
+  &--lightGreen
+    background: $lightGreen
+    color: $green
+

@@ -14,24 +14,16 @@
     -webkit-transform: rotate(45deg)
     transform: rotate(45deg)
 
-// .selectorA
-//     // 四つ角を指定。
-//     @include border-radius("5px 10px 20px 5px")
-//
-// .selectorB
-//     // 左上を5pxの角丸に指定。
-//     @include border-radius("5px", "top-left")
-//
 
-@mixin border-radius($property-value, $property-type: shorthand)
-  // Firefox3.6以下のtopleftやbottomrightなどの
-  // 1コーナーのみを指定する記述には対応していません。
-  $property: border-radius
-  @if $property-type != shorthand
-    $property: border-#{$property-type}-radius
-    // e.g. 'top-left', 'bottom-right'
-  // OUTPUT
-  #{$property}: #{$property-value}
+
+// ---------------------------------------------------------
+// exchange font size to "rem"
+// ---------------------------------------------------------
+@mixin rem ($pixel: 16, $base: $baseFontSizeNum )
+  @if $support-ie8
+    font-size: $pixel + px
+  font-size: ( $pixel / $base ) * 1rem
+
 
 
 // ---------------------------------------------------------
@@ -55,10 +47,30 @@
 // box-shadow
 // ---------------------------------------------------------
 @mixin box-shadow( $off-y, $off-x, $blur, $color)
-  -moz-box-shadow: $off-y $off-x $blur $color
-  -webkit-box-shadow: $off-y $off-x $blur $color
   box-shadow: $off-y $off-x $blur $color
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#{$color},direction=135,strength=2,enabled=true)"
+
+  @if $support-ie8
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#{$color},direction=135,strength=2,enabled=true)"
+
+
+// ---------------------------------------------------------
+// text-border
+// ---------------------------------------------------------
+@mixin text-border( $color, $width: 1px, $blur: 0px)
+  text-shadow: $color $width $width $blur, $color (-$width) $width $blur, $color $width  (-$width) $blur, $color  (-$width)  (-$width) $blur
+
+
+// ---------------------------------------------------------
+// opacity
+// ---------------------------------------------------------
+@mixin opacity( $num )
+  $ieNum: $num * 100
+  opacity: $num
+  @if $support-ie8
+    -ms-filter: "alpha( opacity=#{$ieNum} )"
+    zoom: 1
+  @if $support-ie6 or $support-ie7
+    filter: alpha(opacity=#{$ieNum})
 
 
 // ---------------------------------------------------------
@@ -66,10 +78,14 @@
 // ---------------------------------------------------------
 @mixin gradient($baseColor, $toColor)
   background-color: $baseColor
-  background-image: -moz-linear-gradient(top, $baseColor, $toColor)
-  background-image: -webkit-gradient(linear,left top,left bottom, color-stop(0, $baseColor),color-stop(1, $toColor))
-  background-image: linear-gradient(top,$baseColor, $toColor)
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$baseColor}', EndColorStr='#{$toColor}')
 
+  // background-image: -moz-linear-gradient(top, $baseColor, $toColor)
+  // background-image: -webkit-gradient(linear,left top,left bottom, color-stop(0, $baseColor),color-stop(1, $toColor))
 
+  @if $support-ie10
+    background-image: -ms-gradient(linear,left top,left bottom, color-stop(0, $baseColor),color-stop(1, $toColor))
+  @if $support-ie9
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$baseColor}', EndColorStr='#{$toColor}')
+
+  background: linear-gradient(to bottom, $baseColor 0%, $toColor 100%)
 

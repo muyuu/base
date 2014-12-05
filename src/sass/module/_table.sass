@@ -1,0 +1,106 @@
+
+.table
+  width: 100%
+  th,td
+    padding: .5em
+    border: 1px solid $lightGray
+
+  &__heading01
+    background: #7f7f7f
+    color: $white
+    text-align: center
+    font-weight: bold
+
+  &__heading02
+    background: #efefef
+    // font-weight: bold
+
+  &__td
+    &--name
+      width: 200px
+    &--tel
+      width: 150px
+
+  // modifier
+  &--blue
+    th,td
+      background: $lightBlue
+      border: 1px solid $white
+
+    &__th
+      width: 40px
+
+
+
+%priceTd
+  margin: 0 5px
+  padding: 5px 10px
+  border-left: 1px solid #e6e6e6
+  border-right: 1px solid #e6e6e6
+  p
+    margin: 0
+
+.priceTable
+  th,td
+    +rem(14)
+  th
+    width: 130px
+    border-top: 1px dotted $green
+    color: $green
+    text-align: left
+    font-weight: normal
+  td
+    width: 300px
+    vertical-align: top
+
+  &__itemTitle
+    @extend %priceTd
+    border-radius: 4px 4px 0 0
+    border-bottom: 1px solid $white
+    background: $green
+    color: $white
+    text-align: center
+    +rem(22)
+    font-weight: bold
+
+  &__itemPrice
+    @extend %priceTd
+    color: $white
+    text-align: center
+    background: #81B413
+    +rem(52)
+    letter-spacing: 0
+    font-family: arial
+    font-weight: bold
+    p
+      margin-top: 0
+    .money
+      line-height: 52px
+    .small
+      +rem(14)
+      text-align: right
+
+  &__itemDetail
+    @extend %priceTd
+    color: $green
+
+  &__itemAdd
+    @extend %priceTd
+    border-top: 1px solid #E6E6E6
+    border-bottom: 1px solid #E6E6E6
+
+  &__itemRecommend
+    @extend %priceTd
+    background: $green
+    color: $white
+    text-align: center
+    +rem(13)
+
+
+  &__itemBtn
+    @extend %priceTd
+    padding-bottom: 15px
+    text-align: center
+    border: 1px solid #e6e6e6
+    -webkit-border-radius: 0 0 4px 4px
+    border-radius: 0 0 4px 4px

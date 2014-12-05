@@ -1,0 +1,54 @@
+.headline
+  background: $green
+  &__caption
+    margin: 0
+    color: $white
+    +rem(15)
+
+
+
+.pageHeader
+  .container
+    padding: 20px 0
+
+
+.headNav
+  &__listWrap
+    margin-top: 20px
+    float: right !important
+  &__list
+    +clrfx
+
+  &__item
+    position: relative
+    float: left
+    padding: 5px 10px
+    border-left: 1px solid $lightGray
+    a
+      display: block
+      color: $black
+      &:hover
+        color: $darkOrange
+    &:first-child
+      border: none
+
+
+  // child
+  &__childNav
+    display: none
+    position: absolute
+    width: 300px
+    left: 0
+    z-index: 2
+    padding-top: 10px
+    &--show
+      display: block
+
+  &__childList
+    border-top: 4px solid $darkGreen
+  &__childItem
+    padding: 10px
+    border-top: 1px solid $green
+    background: url('img/bg_headNavChild.png') repeat
+    &:first-child
+      border-top: none

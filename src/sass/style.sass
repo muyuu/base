@@ -1,38 +1,64 @@
 @charset "utf-8"
 
-// 設定ファイル
-@import "setting"
+// initial
+@import "util/color-palette"
+@import "util/site-color"
+@import "util/setting"
+@import "util/extend"
+@import "util/mixin"
+@import "util/helper"
 
-// 外部ライブラリ
-@import "common/modularized-normalize-scss/normalize"
+
+// reset
+@import "common/normalize"
 // @import "common/reset"
 
+
 // 共通ライブラリ
-@import "common/mixin"
-@import "common/mixin-css3"
 @import "common/extend"
-@import "common/sprite"
 @import "common/func"
+@import "common/mixin-css3"
+@import "common/mixin"
+@import "common/sprite"
+@import "common/easing"
 
-@import "element"
 
-@import "common/utility"
-@import "utility"
-@import "common/grid"
-@import "common/btn"
+// base element
+@import "base/root"
+@import "base/inline"
+@import "base/block"
+@import "base/heading"
+@import "base/list"
+@import "base/form"
 
-// サイト固有ファイル
-@import "extend"
-@import "mixin"
-@import "layout"
-@import "heading"
-@import "module-heading"
-@import "module-sprite"
-@import "module"
-// @import "responsive"
 
-// プロトタイプ作成用
-// @import "common/prototype"
+// layout element
+@import "layout/_grid"
+@import "layout/_wrap"
+@import "layout/page"
+@import "layout/pageheader"
+@import "layout/pagebody"
+@import "layout/pagefooter"
+@import "layout/gototop"
 
-// 別途特定のページ用ファイル
-// @import top"
+
+// module
+@import "module/box"
+@import "module/btn"
+@import "module/column"
+@import "module/floatImg"
+@import "module/form"
+@import "module/heading"
+@import "module/img"
+@import "module/list"
+@import "module/news"
+@import "module/note"
+@import "module/tab"
+@import "module/table"
+
+
+// state
+@import "state/state"
+@import "state/responsive"
+
+

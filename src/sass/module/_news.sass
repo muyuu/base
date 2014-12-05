@@ -1,0 +1,40 @@
+.news
+  +clrfx
+
+  &__item
+    float: left
+    width: 340px
+    margin-left: 5px
+    &:first-child
+      margin-left: 0
+
+  &__article
+    padding: 10px 10px 10px 80px
+    background: $white  no-repeat 10px center
+    border-top: 4px solid $green
+
+    &--event
+      background-image: url("img/icon_event.png")
+    &--release
+      background-image: url("img/icon_release.png")
+    &--update
+      background-image: url("img/icon_update.png")
+
+    a
+      color: $green
+
+  &__caption
+    margin: 0
+    color: $green
+
+  &__date
+    color: $lightGray
+
+
+  &--caution
+    background: $lightOrange
+    color: $white
+
+  &--primary
+    background: $lightGreen
+

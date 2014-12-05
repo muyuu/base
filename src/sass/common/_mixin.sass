@@ -28,16 +28,21 @@
 
 //--------------------------------------------------
 // Grid System
+// ------------------------------------------------
 @mixin grid ($span)
   $tmpwd: ($column-width * $span) + ($gutter-width * ($span - 1))
-  width: percentage($tmpwd / $content-width)
-  margin-left: percentage($gutter-width / $content-width)
-  // width: $tmpwd
-  // margin-left: $gutter-width
+
+  @if $support-responsive
+    width: percentage($tmpwd / $content-width)
+    margin-left: percentage($gutter-width / $content-width)
+  @elseif
+    width: $tmpwd
+    margin-left: $gutter-width
 
 
-// ---------------------------------------------------------
+// ------------------------------------------------
 // clearfix
+// ------------------------------------------------
 @mixin clrfx
   @if $support-ie6 or $support-ie7
     zoom: 1
