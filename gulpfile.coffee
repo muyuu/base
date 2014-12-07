@@ -48,13 +48,17 @@ g.task 'clear-libs', ->
 g.task "bower", ['clear-libs'], ->
   jsFilter = gulpFilter "**/*.js"
   cssFilter = gulpFilter "**/*.css"
+  fontsFilter = gulpFilter ["**/*.otf", "**/*.eot","**/*.svg","**/*.ttf","**/*.woff"]
 
   g.src(mainBowerFiles())
     .pipe(jsFilter)
-    .pipe(g.dest("#{d.lib}"))
+    .pipe(g.dest("#{d.lib}js"))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe(g.dest("#{d.lib}css"))
+    .pipe(cssFilter.restore())
+    .pipe(fontsFilter)
+    .pipe(g.dest("#{d.lib}fonts"))
 
 
 # local server

@@ -12,10 +12,16 @@
   },
   "overrides": {
     "jquery": {
-      "main": "dist/jquery.js"
+      "main": [
+        "dist/jquery.min.js",
+        "dist/jquery.min.map"
+      ]
     },
     "underscore": {
-      "main": "underscore.js"
+      "main": [
+        "underscore-min.js",
+        "underscore-min.map"
+      ]
     }
   }
 }
