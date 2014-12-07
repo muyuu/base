@@ -93,20 +93,14 @@ g.task "jade", ->
 
 # sass
 g.task "sass", ->
-  g.src "#{s.css}pc/style.sass"
+  g.src "#{s.css}style.sass"
     .pipe $.plumber()
     .pipe $['rubySass']
       sourcemap: true
       style: "compressed"
-    .pipe g.dest("pc/assets/css/")
+    .pipe g.dest("#{d.css}")
     .pipe $.connect.reload()
-  g.src "#{s.css}sp/style.sass"
-    .pipe $.plumber()
-    .pipe $['rubySass']
-      sourcemap: true
-      style: "compressed"
-    .pipe g.dest("sp/assets/css/")
-    .pipe $.connect.reload()
+
 
 # coffee
 g.task "coffee", ->
@@ -114,6 +108,7 @@ g.task "coffee", ->
   .pipe $.coffee
     bare: true
   .pipe g.dest("#{d.js}")
+
 
 # concat
 g.task "concat", ->
