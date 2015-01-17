@@ -12,9 +12,9 @@ txt = "txt/"
 
 s =
   root: src
-  html: src + "jade/"
-  css: src + "sass/"
-  js: src + "coffee/"
+  html: src + "html/"
+  css: src + "css/"
+  js: src + "js/"
 
 d =
   root: dist
@@ -31,14 +31,15 @@ t =
 
 
 jsFiles = [
-  "#{d.js}util/extend.js"
-  "#{d.js}util/polyfill.js"
-  "#{d.js}util/validate.js"
-  "#{d.js}init.js"
-  "#{d.js}controller/**/*.js"
-  "#{d.js}model/**/*.js"
-  "#{d.js}view/**/*.js"
-  "#{d.js}run.js"
+  "#{s.js}util/extend.js"
+  "#{s.js}util/polyfill.js"
+  "#{s.js}util/validate.js"
+  "#{s.js}init.js"
+  "#{s.js}accordion/accordion.js"
+  "#{s.js}anchorLink/anchorLink.js"
+  "#{s.js}bangs/bangs.js"
+  "#{s.js}tab/tab.js"
+  "#{s.js}run.js"
 ]
 
 # bower
@@ -79,8 +80,8 @@ g.task "url", ->
     .pipe($.open "", options)
 
 
-# jade
-g.task "jade", ->
+# html
+g.task "html", ->
   g.src ["#{s.html}**/*.jade", "!#{s.html}**/_*.jade"]
     .pipe $.changed "#{d.html}", { hasChanged: $.changed.compareSha1Digest }
     .pipe $.plumber()
@@ -91,8 +92,8 @@ g.task "jade", ->
     .pipe $.connect.reload()
 
 
-# sass
-g.task "sass", ->
+# css
+g.task "css", ->
   g.src "#{s.css}style.sass"
     .pipe $.plumber()
     .pipe $['rubySass']
@@ -102,12 +103,13 @@ g.task "sass", ->
     .pipe $.connect.reload()
 
 
-# coffee
-g.task "coffee", ->
+# js
+g.task "js", ->
   g.src "#{s.js}**/*.coffee"
+  .pipe $.plumber()
   .pipe $.coffee
     bare: true
-  .pipe g.dest("#{d.js}")
+  .pipe g.dest("#{s.js}")
 
 
 # concat
@@ -120,10 +122,10 @@ g.task "concat", ->
 
 # watch
 g.task "watch", ->
-  g.watch "#{s.html}**/*.jade", ["jade"]
-  g.watch "#{s.css}**/*.sass", ["sass"]
-  g.watch "#{s.js}**/*.coffee", ["coffee"]
-  g.watch "#{d.js}**/*.js", ["concat"]
+  g.watch "#{s.html}**/*.jade", ["html"]
+  g.watch "#{s.css}**/*.sass", ["css"]
+  g.watch "#{s.js}**/*.coffee", ["js"]
+  g.watch "#{s.js}**/*.js", ["concat"]
 
 
 

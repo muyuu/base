@@ -1,0 +1,68 @@
+.tab
+  ul.tab__head
+    li.tab__item
+      a(href="#install") インストール
+    li.tab__item
+      a(href="#howtouse") 使い方
+    li.tab__item
+      a(href="#option") オプション
+  ul.tabBody
+    li#install.tab__content
+      p htmlにタブを書く
+      pre
+        code
+          | &lt;div class="tab"&gt;
+          | &lt;ul class="tab__head"&gt;
+          | &lt;li class="tab__item"&gt;タブ1&lt;/li&gt;
+          | &lt;li class="tab__item"&gt;タブ2&lt;/li&gt;
+          | &lt;li class="tab__item"&gt;タブ3&lt;/li&gt;
+          | &lt;/ul&gt;
+          | &lt;ul class="tab__body"&gt;
+          | &lt;li class="tab__content"&gt;中身ですよ、中身。文句あっか&lt;/li&gt;
+          | &lt;li class="tab__content"&gt;中身ですよ、中身。文句あっか&lt;/li&gt;
+          | &lt;li class="tab__content"&gt;中身ですよ、中身。文句あっか&lt;/li&gt;
+          | &lt;/ul&gt;
+          | &lt;/div&gt;
+      p css はお好みで。
+      p jQueryを読み込む
+      p Underscore.jsを読み込む
+      pre
+        code
+          | &lt;script src="//code.jquery.com/jquery-1.10.1.min.js"&gt;&lt;/script&gt;
+          | &lt;script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"&gt;&lt;/script&gt;
+      p tabn.jsを読み込む
+      pre
+        code
+          | &lt;script src='/tab.js'&gt;&lt;/script&gt;
+      p 準備は以上になります！
+
+    li#howtouse.tab__content
+      p タブとタブのコンテンツをラップした要素をセレクターに指定
+      pre
+        code
+          | app.tab.set({".tab"});
+      p アクティブタブとコンテンツには .is-current が付与される
+      p タブはデフォルトはセレクタ内の .tab__item 。
+      p タブをラップする要素はデフォルトはセレクタ内の .tab 。変更したい場合はオプションを付与。
+
+    li#option.tab__content
+      table.table
+        tr
+          th.table__th root
+          td.table__td タブの要素（デフォルトは .tab ）
+        tr
+          th.table__th tab
+          td.table__td タブのラッパー（デフォルトは .tab__head ）
+        tr
+          th.table__th item
+          td.table__td タブ（デフォルトは .tab__item ）
+        tr
+          th.table__th body
+          td.table__td タブの中身のラッパー（デフォルトは tab__body ）
+        tr
+          th.table__th content
+          td.table__td タブの中身（デフォルトは .tab__content ）
+        tr
+          th.table__th currentClass
+          td.table__td カレントなタブとコンテンツに付与されるクラス（デフォルトは is-current ）
+
