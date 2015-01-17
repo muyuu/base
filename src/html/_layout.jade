@@ -10,6 +10,7 @@ html(lang="ja")
     meta(name="description",content="#{pageDesc}")
     meta(name="keywords",content="#{pageKey}")
     block add_css_before
+    link(rel="stylesheet",href="#{lib}css/font-awesome.min.css")
     link(rel="stylesheet",href="#{css}style.css")
     block add_css
 
@@ -46,6 +47,8 @@ html(lang="ja")
 
   script(src="#{lib}jquery.js")
   script(src="#{lib}underscore.js")
+  script(src="#{lib}js/jquery.min.js")
+  script(src="#{lib}js/underscore-min.js")
   block add_js_libs
   // build:js #{js}app.min.js
   script(src="#{js}app.js")

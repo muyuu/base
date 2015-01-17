@@ -47,7 +47,7 @@ g.task 'clear-libs', ->
   del.sync "#{d.lib}"
 
 g.task "bower", ['clear-libs'], ->
-  jsFilter = gulpFilter "**/*.js"
+  jsFilter = gulpFilter ["**/*.js", "**/*.map"]
   cssFilter = gulpFilter "**/*.css"
   fontsFilter = gulpFilter ["**/*.otf", "**/*.eot","**/*.svg","**/*.ttf","**/*.woff"]
 
