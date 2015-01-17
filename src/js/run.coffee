@@ -1,5 +1,7 @@
 (($, _, w, app) ->
   $(->
+    app.anchorLink.init()
+
     app.bangs.set()
 
     app.tab.set()

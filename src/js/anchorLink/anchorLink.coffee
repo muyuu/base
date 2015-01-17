@@ -8,12 +8,11 @@
     notEle = "a[href=#], .noAnimateAnchor";
     $("a[href^=#]").not(notEle).on("click", anchor.moveAnchor);
 
-
   anchor.moveAnchor = ->
     href = $(this).attr("href")
     speed = 500
     easing = 'swing'
-    target = $((href is "#" || href is "" ? "html" : href))
+    target = $((if href is "#" or href is "" then "html" else href))
     animateParam =
       scrollTop: target.offset().top
 

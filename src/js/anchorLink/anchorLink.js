@@ -7,13 +7,11 @@
     return $("a[href^=#]").not(notEle).on("click", anchor.moveAnchor);
   };
   anchor.moveAnchor = function() {
-    var animateParam, easing, href, speed, target, _ref;
+    var animateParam, easing, href, speed, target;
     href = $(this).attr("href");
     speed = 500;
     easing = 'swing';
-    target = $((_ref = href === "#" || href === "") != null ? _ref : {
-      "html": href
-    });
+    target = $((href === "#" || href === "" ? "html" : href));
     animateParam = {
       scrollTop: target.offset().top
     };
