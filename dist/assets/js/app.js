@@ -284,6 +284,58 @@ app = app || {};
   };
 })(jQuery, _, window, app);
 
+(function(w, app, $) {
+  var anchor;
+  anchor = app.anchorLink = app.anchorLink || {};
+  anchor.init = function() {
+    var notEle;
+    notEle = "a[href=#], .noAnimateAnchor";
+    return $("a[href^=#]").not(notEle).on("click", anchor.moveAnchor);
+  };
+  anchor.moveAnchor = function() {
+    var animateParam, easing, href, speed, target;
+    href = $(this).attr("href");
+    speed = 500;
+    easing = 'swing';
+    target = $((href === "#" || href === "" ? "html" : href));
+    animateParam = {
+      scrollTop: target.offset().top
+    };
+    $("html, body").animate(animateParam, speed, easing);
+    return false;
+  };
+})(window, app, jQuery);
+
+(function($, w, app) {
+  var me;
+  me = app.gotoTop = {};
+  me = {
+    ele: $(".goToTop"),
+    disp: false,
+    dispScrollTop: 100,
+    animateTime: 400
+  };
+  if (me.ele[0]) {
+    return $(window).scroll(function() {
+      if ($(window).scrollTop() > me.dispScrollTop) {
+        if (!me.disp) {
+          me.ele.animate({
+            opacity: 1
+          }, me.animateTime);
+          return me.disp = true;
+        }
+      } else {
+        if (me.disp) {
+          me.ele.animate({
+            opacity: 0
+          }, me.animateTime);
+          return me.disp = false;
+        }
+      }
+    });
+  }
+})(jQuery, window, app);
+
 (function($, _, w, app) {
   var Const, me;
   me = app.bangs = {};
@@ -563,6 +615,7 @@ app = app || {};
 
 (function($, _, w, app) {
   $(function() {
+    app.anchorLink.init();
     app.bangs.set();
     app.tab.set();
     app.accordion.set({

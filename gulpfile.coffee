@@ -37,6 +37,7 @@ jsFiles = [
   "#{s.js}init.js"
   "#{s.js}accordion/accordion.js"
   "#{s.js}anchorLink/anchorLink.js"
+  "#{s.js}goToTop/goToTop.js"
   "#{s.js}bangs/bangs.js"
   "#{s.js}tab/tab.js"
   "#{s.js}run.js"
@@ -47,7 +48,7 @@ g.task 'clear-libs', ->
   del.sync "#{d.lib}"
 
 g.task "bower", ['clear-libs'], ->
-  jsFilter = gulpFilter "**/*.js"
+  jsFilter = gulpFilter ["**/*.js", "**/*.map"]
   cssFilter = gulpFilter "**/*.css"
   fontsFilter = gulpFilter ["**/*.otf", "**/*.eot","**/*.svg","**/*.ttf","**/*.woff"]
 
