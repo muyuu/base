@@ -37,6 +37,7 @@ jsFiles = [
   "#{s.js}init.js"
   "#{s.js}accordion/accordion.js"
   "#{s.js}anchorLink/anchorLink.js"
+  "#{s.js}goToTop/goToTop.js"
   "#{s.js}bangs/bangs.js"
   "#{s.js}tab/tab.js"
   "#{s.js}run.js"

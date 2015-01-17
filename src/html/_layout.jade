@@ -24,7 +24,7 @@ html(lang="ja")
 
   body
     .page
-      .pageHeader
+      .pageHeader#pageHeader
         .container
           block header
 
@@ -45,8 +45,11 @@ html(lang="ja")
 
       .pageFooter
 
-  script(src="#{lib}jquery.js")
-  script(src="#{lib}underscore.js")
+      .goToTop
+        a.goToTop__link(href="#pageHeader")
+          i.fa.fa-hand-o-up.fa-4x
+
+
   script(src="#{lib}js/jquery.min.js")
   script(src="#{lib}js/underscore-min.js")
   block add_js_libs
