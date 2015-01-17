@@ -1,0 +1,59 @@
+.box
+  box-sizing: border-box
+  margin: 30px 0
+
+  // --------------------------
+  //  element
+  // --------------------------
+  &__heading
+    color: $white
+    background: $black
+    +bgPattern
+
+
+  &__caption
+    margin: 0
+    padding: .5em 10px
+    font-size: 15px
+    font-weight: bold
+
+
+  &__body
+    border: 1px solid $black
+    +borderPattern
+
+    &--inner
+      padding: 10px
+
+
+  // --------------------------
+  // modifier
+  // --------------------------
+  &--absorb
+    margin: 0
+    .box__caption
+      padding: .5em 20px
+
+  &--ver2
+    margin-top: 10px
+
+  &--feature
+    .box__heading
+      background: #18516F !important
+
+    .box__body
+      border-color: #18516F !important
+
+  &--black
+    .box__heading
+      background: $black !important
+
+      &--blue
+        background: #2F63CF !important
+
+      &--pink
+        background: #FF2E63 !important
+
+    .box__body
+      border-color: $black !important
+
