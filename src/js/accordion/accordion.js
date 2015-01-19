@@ -1,6 +1,13 @@
 (function($, _, w, app) {
+
+  /**
+   * tab module
+   * this module is dependent on jQuery, Underscore.js
+   * @prop {array} instance
+   * @namespace
+   */
   var Const, me;
-  me = app.accordion = {};
+  me = app.accordion = app.accordion || {};
 
   /**
    * default root element
@@ -15,7 +22,7 @@
 
   /**
    * make instance and push array
-   * @param param
+   * @param {object} param
    */
   me.set = function(param) {
     var $self;

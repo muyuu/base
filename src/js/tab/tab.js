@@ -10,14 +10,19 @@
   me = app.tab = app.tab || {};
 
   /**
-   * box each me element instances
+   * default root element
+   */
+  me.defaultRootElement = '.tab';
+
+  /**
+   * box each tab element instances
    * @type {Array}
    */
   me.instance = [];
 
   /**
    * make instance and push array
-   * @param param
+   * @param {object} param
    */
   me.set = function(param) {
     var $self;
@@ -25,7 +30,7 @@
     if (param.root != null) {
       $self = $(param.root);
     } else {
-      $self = $('.tab');
+      $self = $(me.defaultRootElement);
     }
     _.each($self, function(val, key) {
       return me.instance.push(new Const(param, val));
@@ -33,8 +38,8 @@
   };
 
   /**
-   * make tab instances
-   * @constructor
+   * constructor
+   * @type {Function}
    */
   Const = me.Make;
   Const = function(param, root) {
@@ -47,7 +52,7 @@
     this.currentIndex = 0;
     this.hash = null;
     this.opt = {
-      root: ".tab",
+      root: me.defaultRootElement,
       tab: ".tab__head",
       item: ".tab__item",
       body: ".tab__body",
@@ -90,12 +95,9 @@
    * @returns {boolean}
    */
   Const.prototype.setElement = function(root) {
-    var one, opt;
-    one = this;
-    opt = one.opt;
-    one.$root = $(root);
-    one.$item = one.$root.find(opt.item);
-    one.$content = one.$root.find(opt.content);
+    this.$root = $(root);
+    this.$item = this.$root.find(this.opt.item);
+    this.$content = this.$root.find(this.opt.content);
     return false;
   };
 

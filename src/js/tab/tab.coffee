@@ -10,7 +10,13 @@
 
 
   ###*
-   * box each me element instances
+   * default root element
+  ###
+  me.defaultRootElement = '.tab'
+
+
+  ###*
+   * box each tab element instances
    * @type {Array}
   ###
   me.instance = []
@@ -18,14 +24,14 @@
 
   ###*
    * make instance and push array
-   * @param param
+   * @param {object} param
   ###
   me.set = (param) ->
     param = param || {}
     if param.root?
       $self = $ param.root
     else
-      $self = $('.tab')
+      $self = $(me.defaultRootElement)
 
     _.each $self, (val, key) ->
       me.instance.push new Const(param, val)
@@ -33,10 +39,11 @@
 
 
   ###*
-   * make tab instances
-   * @constructor
+   * constructor
+   * @type {Function}
   ###
   Const = me.Make
+
   Const = (param, root) ->
     ins = this
 
@@ -59,7 +66,7 @@
     # options
     # -----------------------
     @opt =
-      root: ".tab"
+      root: me.defaultRootElement
       tab: ".tab__head"
       item: ".tab__item"
       body: ".tab__body"
@@ -122,12 +129,10 @@
    * @returns {boolean}
   ###
   Const::setElement = (root)->
-    one = this
-    opt = one.opt
 
-    one.$root = $(root)
-    one.$item = one.$root.find(opt.item)
-    one.$content = one.$root.find(opt.content)
+    @$root = $(root)
+    @$item = @$root.find(@opt.item)
+    @$content = @$root.find(@opt.content)
     false
 
 
