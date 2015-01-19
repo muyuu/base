@@ -1,14 +1,14 @@
 ((w, app, $)->
 
-  anchor = app.anchorLink = app.anchorLink || {};
+  me = app.anchorLink = app.anchorLink || {};
 
   # init
-  anchor.init = ->
+  me.init = ->
 
     notEle = "a[href=#], .noAnimateAnchor";
-    $("a[href^=#]").not(notEle).on("click", anchor.moveAnchor);
+    $("a[href^=#]").not(notEle).on("click", me.moveAnchor);
 
-  anchor.moveAnchor = ->
+  me.moveAnchor = ->
     href = $(this).attr("href")
     speed = 500
     easing = 'swing'

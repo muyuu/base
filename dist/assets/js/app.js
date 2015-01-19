@@ -292,14 +292,14 @@ app = app || {};
 })(jQuery, _, window, app);
 
 (function(w, app, $) {
-  var anchor;
-  anchor = app.anchorLink = app.anchorLink || {};
-  anchor.init = function() {
+  var me;
+  me = app.anchorLink = app.anchorLink || {};
+  me.init = function() {
     var notEle;
     notEle = "a[href=#], .noAnimateAnchor";
-    return $("a[href^=#]").not(notEle).on("click", anchor.moveAnchor);
+    return $("a[href^=#]").not(notEle).on("click", me.moveAnchor);
   };
-  anchor.moveAnchor = function() {
+  me.moveAnchor = function() {
     var animateParam, easing, href, speed, target;
     href = $(this).attr("href");
     speed = 500;
