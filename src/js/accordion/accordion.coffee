@@ -1,5 +1,13 @@
 (($, _, w, app) ->
-  me = app.accordion = {}
+
+  ###*
+   * tab module
+   * this module is dependent on jQuery, Underscore.js
+   * @prop {array} instance
+   * @namespace
+  ###
+  me = app.accordion = app.accordion || {}
+
 
   ###*
    * default root element
@@ -16,7 +24,7 @@
 
   ###*
    * make instance and push array
-   * @param param
+   * @param {object} param
   ###
   me.set = (param) ->
     param = param || {}
@@ -35,6 +43,7 @@
    * @type {Function}
   ###
   Const = me.Make
+
   Const = (param, root) ->
 
     # -----------------------
