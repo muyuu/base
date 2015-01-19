@@ -2,7 +2,13 @@
   me = app.bangs = {}
 
   ###*
-   * box each adjust height element instances
+   * default root element
+  ###
+  me.defaultRootElement = '.bangs'
+
+
+  ###*
+   * box each bangs height element instances
    * @type {Array}
   ###
   me.instance = []
@@ -17,7 +23,7 @@
     if param.root?
       $self = $ param.root
     else
-      $self = $('.bangs')
+      $self = $(me.defaultRootElement)
 
     _.each $self, (val, key) ->
       me.instance.push new Const(param, val)
@@ -47,7 +53,7 @@
     # options
     # -----------------------
     @.opt =
-      root: ".me"
+      root: me.defaultRootElement
       item: ".bangs__item"
 
     @.setOption(param)

@@ -341,7 +341,12 @@ app = app || {};
   me = app.bangs = {};
 
   /**
-   * box each adjust height element instances
+   * default root element
+   */
+  me.defaultRootElement = '.bangs';
+
+  /**
+   * box each bangs height element instances
    * @type {Array}
    */
   me.instance = [];
@@ -356,7 +361,7 @@ app = app || {};
     if (param.root != null) {
       $self = $(param.root);
     } else {
-      $self = $('.bangs');
+      $self = $(me.defaultRootElement);
     }
     _.each($self, function(val, key) {
       return me.instance.push(new Const(param, val));
@@ -373,7 +378,7 @@ app = app || {};
     this.$item = null;
     this.maxHeight = 0;
     this.opt = {
-      root: ".me",
+      root: me.defaultRootElement,
       item: ".bangs__item"
     };
     this.setOption(param);
