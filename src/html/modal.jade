@@ -1,0 +1,37 @@
+//- load config file
+include /_conf
+
+block pageVarialbes
+  -var pageTitle = ""
+  -var pageDesc = ""
+  -var pageKey = ""
+  -var bodyClass = "modalPage"
+  -var toRootPath = './';
+
+doctype html
+html(lang="ja")
+  head
+    meta(charset='UTF-8')
+    meta(name="viewport",content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
+    meta(name="format-detection", content="telephone=no")
+
+    title #{pageTitle}
+    meta(name="description",content="#{pageDesc}")
+    meta(name="keywords",content="#{pageKey}")
+
+    link(rel="stylesheet",href="#{css}style.css")
+
+  body(class="#{bodyClass}")
+
+    .borderBox
+      .modal__close
+        a.modal__btn(href="#") close modal
+      p modal content
+
+    script(src="#{lib}js/jquery.min.js")
+    script.
+      $('.modal__btn').on("click", function() {
+        parent.app.modal.close();
+      });
+
+

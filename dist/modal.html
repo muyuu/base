@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="/assets/css/style.css">
+  </head>
+  <body class="modalPage">
+    <div class="borderBox">
+      <div class="modal__close"><a href="#" class="modal__btn">close modal</a></div>
+      <p>modal content</p>
+    </div>
+    <script src="/assets/libs/js/jquery.min.js"></script>
+    <script>
+      $('.modal__btn').on("click", function() {
+        parent.app.modal.close();
+      });
+    </script>
+  </body>
+</html>
