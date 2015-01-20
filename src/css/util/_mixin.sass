@@ -1,31 +1,14 @@
-// mixi site pattern variation
-@mixin bgPattern
-  .ds &
-    background: $ds-color
-  .lb &
-    background: $lb-color
 
-@mixin borderPattern
-  .ds &
-    border-color: $ds-color
-  .lb &
-    border-color: $lb-color
+// responsive mixin
+=rowBreak
+  @media (max-width: #{$rowBreak-width - 1px})
+    @content
 
-@mixin bgLightPattern
-  .ds &
-    background: $ds-light-color
-  .lb &
-    background: $lb-light-color
+=tablet
+  @media (max-width: #{$desktop-width - 1px})
+    @content
 
-@mixin borderLightPattern
-  .ds &
-    border-color: $ds-light-color
-  .lb &
-    border-color: $lb-light-color
+=smartphone
+  @media (max-width: #{$sp-width})
+    @content
 
-
-@mixin colorPattern
-  .ds &
-    color: $ds-color
-  .lb &
-    color: $lb-color
