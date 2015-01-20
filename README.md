@@ -8,6 +8,14 @@ It's boilerplate for Web frontend product.
 - modular css BEM base
 
 
+## Supported modules
+- accordion
+- smooth scroll when click anchor link
+- tab
+- adjust block height(named bangs)
+- toggle hide show goToTop link
+- modal (iframe only)
+
 ## using package
 - gulp
 - bower
