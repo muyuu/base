@@ -40,6 +40,7 @@ jsFiles = [
   "#{s.js}goToTop/goToTop.js"
   "#{s.js}bangs/bangs.js"
   "#{s.js}tab/tab.js"
+  "#{s.js}modal/modal.js"
   "#{s.js}run.js"
 ]
 
