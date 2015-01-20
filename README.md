@@ -1,50 +1,46 @@
-anti base
+static site boilerplate
 =========
 
-It's poilerplate for Web frotend product.
+It's boilerplate for Web frontend product.
 
-## grunt plugin
-- grunt
-- grunt-bower-task
-- grunt-contrib-clean
-- grunt-contrib-coffee
-- grunt-contrib-concat
-- grunt-contrib-connect
-- grunt-contrib-jade
-- grunt-contrib-jshint
-- grunt-contrib-sass
-- grunt-contrib-uglify
-- grunt-este-watch
-- grunt-notify
-- grunt-usemin
-- load-grunt-config
-- time-grunt
+## feature
+- module base JavaScript files.
+- modular css BEM base
+
+
+## using package
+- gulp
+- bower
+- Jade
+- Sass
+- CoffeeScript
 
 ## Using bower package
 - jQuery
+- Undersocre.js
+- FontAwesome
 
 ## Usage
 - bower install and setting.
 ````
-grunt init
+bower install
 ````
 
-- start localserver and file watch
+- set bower library to assets directory
 ````
-grunt
+gulp bower
 ````
 
-start watch and localserver.
+- start local server and file watch
+````
+gulp
+````
 
-## Direcotory Summary
+start watch and local server.
+
+## Directory Structure
 ````
 Project_root
-  config
-    grunt
-      alias.yaml
-      connect.coffee
-      ~
-    .jshintrc
   dist
     dir
       index.html
@@ -52,34 +48,38 @@ Project_root
       js
         app.js
       css
-        sryle.css
+        style.css
       img
-      lib // bower installed library
+      libs // bower installed library
     index.html
   src
-    dir
-      index.jade
-    coffee
-      **.coffee
-    sass
+    js
+      module/
+        module.coffee
+      init.coffee
+      run.coffee
+    css
+      base/*.sass
+      common/*.sass
+      layout/*.sass
+      module/**/*.sass
+      state/*.sass
+      util/*.sass
       style.sass
-    index.jade
+    html
+      dir
+        index.jade
+      index.jade
   txt
     index.json
     dir
       index.json
 ````
 
-## grunt task
-grunt task setting file is in 'config/grunt'. 
-
 
 ## jade
-jade is in src directory. and direcotory stracture is same as html.
+jade is in src/html directory. and directory structure is same as html.
 
 ## CoffeeScript
 CoffeeScript file is src/coffee
-
-## text file
-text data of each files set up 'txt' directory.
 
