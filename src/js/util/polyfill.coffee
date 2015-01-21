@@ -10,7 +10,7 @@ unless Array.isArray
 
 
 ###*
- * 引数をprototyeとするオブジェクトの作成メソッドのポリフィル
+ * 引数をprototypeとするオブジェクトの作成メソッドのポリフィル
  * Object.create
  * @param object
  * @return object new object

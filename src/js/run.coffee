@@ -1,5 +1,9 @@
 (($, _, w, app) ->
   $(->
+    # use ua module
+    ua = app.ua.set()
+    console.dir(ua)
+
     # use anchor link
     app.anchorLink.init()
 

@@ -33,7 +33,7 @@ t =
 jsFiles = [
   "#{s.js}util/extend.js"
   "#{s.js}util/polyfill.js"
-  "#{s.js}util/validate.js"
+  "#{s.js}util/ua.js"
   "#{s.js}init.js"
   "#{s.js}accordion/accordion.js"
   "#{s.js}anchorLink/anchorLink.js"
