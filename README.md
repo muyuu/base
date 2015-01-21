@@ -25,7 +25,7 @@ It's boilerplate for Web frontend product.
 
 ## Using bower package
 - jQuery
-- Undersocre.js
+- Underscore.js
 - FontAwesome
 
 ## Usage
