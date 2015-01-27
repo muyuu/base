@@ -56,7 +56,7 @@
       root: me.defaultRootElement
       item: ".bangs__item"
 
-    @.setOption(param)
+    @setOption(param)
 
 
 
@@ -77,17 +77,17 @@
    * set option
    * @returns {boolean}
   ###
-  Const::setOption = (param)=>
+  Const::setOption = (param)->
+    opt = @opt
 
     # set options from parameter
     _.each param, (paramVal, paramKey) ->
-      _.each @.opt, (optVal, optKey) ->
-
+      _.each opt, (optVal, optKey) ->
         # set instance's option param
-        @.opt[optKey] = paramVal  if paramKey is optKey
+        opt[optKey] = paramVal if paramKey is optKey
         return
-
-    return false
+      return
+    return
 
 
   ###*
@@ -128,6 +128,7 @@
 
   Const::adjust = ()->
     ins = @
+    console.log ins.$item
 
     _.each ins.$item, (val, key)->
       height = $(val).height()

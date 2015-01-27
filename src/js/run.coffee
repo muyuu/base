@@ -8,7 +8,9 @@
     app.anchorLink.init()
 
     # use bangs
-    app.bangs.set()
+    app.bangs.set
+      root: ".bang"
+      item: ".bang__item"
 
     # use tab
     app.tab.set()
