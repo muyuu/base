@@ -1,6 +1,6 @@
 {
   "name": "antibase",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": "https://github.com/muyuu/base",
   "ignore": [
     "**/.*",
@@ -13,16 +13,10 @@
   },
   "overrides": {
     "jquery": {
-      "main": [
-        "dist/jquery.min.js",
-        "dist/jquery.min.map"
-      ]
+      "main": ""
     },
     "underscore": {
-      "main": [
-        "underscore-min.js",
-        "underscore-min.map"
-      ]
+      "main": ""
     },
     "fontawesome": {
       "main": [
