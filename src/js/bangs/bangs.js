@@ -52,18 +52,17 @@
    * set option
    * @returns {boolean}
    */
-  Const.prototype.setOption = (function(_this) {
-    return function(param) {
-      _.each(param, function(paramVal, paramKey) {
-        return _.each(this.opt, function(optVal, optKey) {
-          if (paramKey === optKey) {
-            this.opt[optKey] = paramVal;
-          }
-        });
+  Const.prototype.setOption = function(param) {
+    var opt;
+    opt = this.opt;
+    _.each(param, function(paramVal, paramKey) {
+      _.each(opt, function(optVal, optKey) {
+        if (paramKey === optKey) {
+          opt[optKey] = paramVal;
+        }
       });
-      return false;
-    };
-  })(this);
+    });
+  };
 
   /**
    * cache jQuery object
@@ -101,6 +100,7 @@
   Const.prototype.adjust = function() {
     var ins;
     ins = this;
+    console.log(ins.$item);
     _.each(ins.$item, function(val, key) {
       var height;
       height = $(val).height();

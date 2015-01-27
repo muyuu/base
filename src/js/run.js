@@ -4,7 +4,10 @@
     ua = app.ua.set();
     console.dir(ua);
     app.anchorLink.init();
-    app.bangs.set();
+    app.bangs.set({
+      root: ".bang",
+      item: ".bang__item"
+    });
     app.tab.set();
     app.modal.set();
     app.accordion.set({
