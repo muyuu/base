@@ -1,12 +1,16 @@
-(($, w, app)->
+$ = require 'jquery'
+_ = require 'underscore'
 
-  me = app.gotoTop = {}
+gotoTop = {}
 
-  me =
-    ele: $(".goToTop")
-    disp:  false
-    dispScrollTop: 100
-    animateTime: 400
+# alias
+me = gotoTop
+
+me =
+  ele: $(".goToTop")
+  disp:  false
+  dispScrollTop: 100
+  animateTime: 400
 
 #  position
 #  over the footer, right for window
@@ -17,7 +21,7 @@
 #  me.ele.css
 #    "bottom": me.footerHeight + me.copyrightHeight + me.posOffset
 
-
+me.set = ->
   if me.ele[0]
     $(window).scroll ->
       if $(window).scrollTop() > me.dispScrollTop
@@ -33,4 +37,4 @@
           , me.animateTime
           me.disp = false
 
-)(jQuery, window, app)
+module.exports = me
