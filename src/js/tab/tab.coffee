@@ -63,6 +63,7 @@ class Factory
       body: ".tab__body"
       content: ".tab__content"
       currentClass: "is-current"
+      animation: true
 
     # set options from parameter
     @setOption(@param)
@@ -159,7 +160,13 @@ class Factory
 
     false
 
-
+  ###*
+   * make classes at be have item & body
+   * @return {string} addedClass
+  ###
+  addedClass: ->
+    addedClass = @opt.currentClass
+    addedClass += " is-transition" if @opt.animation
 
   ###*
    * change tab
@@ -172,17 +179,16 @@ class Factory
 
     # change me class
     @$item
-      .removeClass(@opt.currentClass)
+      .removeClass @addedClass()
     .eq(@currentIndex)
-      .addClass(@opt.currentClass)
+      .addClass @addedClass()
+
 
     # toggle display content
     @$content
-      .hide()
-      .removeClass(@opt.currentClass)
+      .removeClass @addedClass()
     .eq(@currentIndex)
-      .show()
-      .addClass(@opt.currentClass)
+      .addClass @addedClass()
 
     false
 
