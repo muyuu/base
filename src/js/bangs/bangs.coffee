@@ -1,147 +1,130 @@
 $ = require 'jquery'
 _ = require 'underscore'
 
-bangs = {}
-
-# alias
-me = bangs
-
-
 ###*
- * default root element
+* adjust height module
+* this module is dependent on jQuery, Underscore.js
+* @prop {string} rootElement default root element class or id
+* @prop {array} instance
 ###
-me.defaultRootElement = '.bangs'
+me =
+  rootElement: '.bangs' # default root element
+  instance: [] # box each tab element instances
 
 
-###*
- * box each bangs height element instances
- * @type {Array}
-###
-me.instance = []
+  ###*
+   * make instance and push array
+   * @param {object} param
+  ###
+  set: (param) ->
+    param = param || {}
+    if param.root?
+      $self = $ param.root
+    else
+      $self = $ me.rootElement
 
+    _.each $self, (val, key) ->
+      me.instance.push new Factory(param, val)
+    return
 
-###*
- * make instance and push array
- * @param {object} param
-###
-me.set = (param) ->
-  param = param || {}
-  if param.root?
-    $self = $ param.root
-  else
-    $self = $(me.defaultRootElement)
-
-  _.each $self, (val, key) ->
-    me.instance.push new Const(param, val)
-  return
 
 
 ###*
  * constructor
  * @type {Function}
 ###
-Const = me.Make
+class Factory
+  constructor: (param, root) ->
 
-Const = (param, root) ->
+    # -----------------------
+    # properties
+    # -----------------------
+    # dom jquery object
+    @$root = null
+    @$item = null
 
-  # -----------------------
-  # properties
-  # -----------------------
-  # dom jquery object
-  @.$root = null
-  @.$item = null
+    # max height
+    @maxHeight = 0
 
-  # max height
-  @.maxHeight = 0
+    # -----------------------
+    # options
+    # -----------------------
+    @opt =
+      root: me.rootElement
+      item: ".bangs__item"
 
+    # set options from parameter
+    @setOption(param)
 
-  # -----------------------
-  # options
-  # -----------------------
-  @.opt =
-    root: me.defaultRootElement
-    item: ".bangs__item"
+    # setting dom jQuery elements
+    @.setElement(root)
 
-  @setOption(param)
-
-
-
-  # -----------------------
-  # setting dom jQuery elements
-  # -----------------------
-  @.setElement(root)
-
-  # -----------------------
-  # init
-  # -----------------------
-  @.init()
-
-  return
+    # init
+    @init()
 
 
-###*
- * set option
- * @returns {boolean}
-###
-Const::setOption = (param)->
-  opt = @opt
 
-  # set options from parameter
-  _.each param, (paramVal, paramKey) ->
-    _.each opt, (optVal, optKey) ->
-      # set instance's option param
-      opt[optKey] = paramVal if paramKey is optKey
+  ###*
+   * set option
+   * @returns {boolean}
+  ###
+  setOption: (param)->
+    opt = @opt
+
+    # set options from parameter
+    _.each param, (paramVal, paramKey) ->
+      _.each opt, (optVal, optKey) ->
+        # set instance's option param
+        opt[optKey] = paramVal if paramKey is optKey
+    return
+
+
+  ###*
+   * cache jQuery object
+   * @returns {boolean}
+  ###
+  setElement: (root)->
+
+    @$root = $(root)
+    @$item = @$root.find(@opt.item)
+    false
+
+
+  ###*
+   * init
+   * set event
+  ###
+  init: ()->
+    ins = @
+
+    # set event
+    $(window).on "load resize", ->
+      ins.reset()
+      ins.adjust()
       return
-    return
-  return
+
+    false
 
 
-###*
- * cache jQuery object
- * @returns {boolean}
-###
-Const::setElement = (root)->
+  ###*
+   * reset height
+  ###
+  reset: ()->
 
-  @.$root = $(root)
-  @.$item = @.$root.find(@.opt.item)
-  return false
+    @.maxHeight = 0
+    @.$item.css height: ""
 
 
-###*
- * init
- * set event
-###
-Const::init = ()->
-  ins = @
+  adjust: ()->
+    ins = @
 
-  # set event
-  $(window).on "load resize", ->
-    ins.reset()
-    ins.adjust()
-    return
+    _.each ins.$item, (val, key)->
+      height = $(val).height()
+      ins.maxHeight = height if ins.maxHeight < height
+      return false
 
-  return false
-
-
-###*
- * reset height
-###
-Const::reset = ()->
-
-  @.maxHeight = 0
-  @.$item.css height: ""
-
-
-Const::adjust = ()->
-  ins = @
-
-  _.each ins.$item, (val, key)->
-    height = $(val).height()
-    ins.maxHeight = height if ins.maxHeight < height
+    ins.$item.css height: ins.maxHeight
     return false
-
-  ins.$item.css height: ins.maxHeight
-  return false
 
 
 module.exports = me
