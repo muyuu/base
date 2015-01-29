@@ -120,17 +120,17 @@ class Factory
 
   ###*
    * check location hash
-   * @return {string} hash
+   * @return {boolean} has hash flg
   ###
   hasHash: ()->
-    window.location.hash isnt ""
+    !!window.location.hash isnt ""
 
   ###*
    * set location hash
   ###
   setHash: ()->
     @hash = window.location.hash.replace("#", "") || null
-    console.log @hash
+
 
   ###*
    * get location hash
