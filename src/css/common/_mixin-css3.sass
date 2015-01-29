@@ -66,12 +66,12 @@
 // ---------------------------------------------------------
 @mixin opacity( $num )
   $ieNum: $num * 100
-  opacity: $num
   @if $support-ie8
     -ms-filter: "alpha( opacity=#{$ieNum} )"
     zoom: 1
   @if $support-ie6 or $support-ie7
     filter: alpha(opacity=#{$ieNum})
+  opacity: $num
 
 
 // ---------------------------------------------------------
