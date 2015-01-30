@@ -111,8 +111,8 @@ class Factory
   ###
   reset: ()->
 
-    @.maxHeight = 0
-    @.$item.css height: ""
+    @maxHeight = 0
+    @$item.css height: ""
 
 
   adjust: ()->
