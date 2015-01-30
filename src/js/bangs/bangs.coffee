@@ -1,83 +1,74 @@
-(($, _, w, app) ->
-  me = app.bangs = {}
+$ = require 'jquery'
+_ = require 'underscore'
 
-  ###*
-   * default root element
-  ###
-  me.defaultRootElement = '.bangs'
-
-
-  ###*
-   * box each bangs height element instances
-   * @type {Array}
-  ###
-  me.instance = []
+###*
+* adjust height module
+* this module is dependent on jQuery, Underscore.js
+* @prop {string} rootElement default root element class or id
+* @prop {array} instance
+###
+me =
+  rootElement: '.bangs' # default root element
+  instance: [] # box each tab element instances
 
 
   ###*
    * make instance and push array
    * @param {object} param
   ###
-  me.set = (param) ->
+  set: (param) ->
     param = param || {}
     if param.root?
       $self = $ param.root
     else
-      $self = $(me.defaultRootElement)
+      $self = $ me.rootElement
 
     _.each $self, (val, key) ->
-      me.instance.push new Const(param, val)
+      me.instance.push new Factory(param, val)
     return
 
 
-  ###*
-   * constructor
-   * @type {Function}
-  ###
-  Const = me.Make
 
-  Const = (param, root) ->
+###*
+ * constructor
+ * @type {Function}
+###
+class Factory
+  constructor: (param, root) ->
 
     # -----------------------
     # properties
     # -----------------------
     # dom jquery object
-    @.$root = null
-    @.$item = null
+    @$root = null
+    @$item = null
 
     # max height
-    @.maxHeight = 0
-
+    @maxHeight = 0
 
     # -----------------------
     # options
     # -----------------------
-    @.opt =
-      root: me.defaultRootElement
+    @opt =
+      root: me.rootElement
       item: ".bangs__item"
 
+    # set options from parameter
     @setOption(param)
 
-
-
-    # -----------------------
     # setting dom jQuery elements
-    # -----------------------
     @.setElement(root)
 
-    # -----------------------
     # init
-    # -----------------------
-    @.init()
+    @init()
 
-    return
 
 
   ###*
    * set option
    * @returns {boolean}
   ###
-  Const::setOption = (param)->
+  setOption: (param)->
     opt = @opt
 
     # set options from parameter
@@ -85,8 +76,6 @@
       _.each opt, (optVal, optKey) ->
         # set instance's option param
         opt[optKey] = paramVal if paramKey is optKey
-        return
-      return
     return
 
 
@@ -94,41 +83,40 @@
    * cache jQuery object
    * @returns {boolean}
   ###
-  Const::setElement = (root)->
+  setElement: (root)->
 
-    @.$root = $(root)
-    @.$item = @.$root.find(@.opt.item)
-    return false
+    @$root = $(root)
+    @$item = @$root.find(@opt.item)
+    false
 
 
   ###*
    * init
    * set event
   ###
-  Const::init = ()->
+  init: ()->
     ins = @
 
     # set event
-    $(w).on "load resize", ->
+    $(window).on "load resize", ->
       ins.reset()
       ins.adjust()
       return
 
-    return false
+    false
 
 
   ###*
    * reset height
   ###
-  Const::reset = ()->
+  reset: ()->
 
-    @.maxHeight = 0
-    @.$item.css height: ""
+    @maxHeight = 0
+    @$item.css height: ""
 
 
-  Const::adjust = ()->
+  adjust: ()->
     ins = @
-    console.log ins.$item
 
     _.each ins.$item, (val, key)->
       height = $(val).height()
@@ -139,5 +127,4 @@
     return false
 
 
-  return
-) jQuery, _, window, app
+module.exports = me

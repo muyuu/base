@@ -1,24 +1,27 @@
-((w, app, $)->
+$ = require 'jquery'
+_ = require 'underscore'
 
-  me = app.anchorLink = app.anchorLink || {};
+anchorLink = {}
 
-  # init
-  me.init = ->
+# alias
+me = anchorLink
 
-    notEle = "a[href=#], .noAnimateAnchor";
-    $("a[href^=#]").not(notEle).on("click", me.moveAnchor);
+# init
+me.set = ->
 
-  me.moveAnchor = ->
-    href = $(this).attr("href")
-    speed = 500
-    easing = 'swing'
-    target = $((if href is "#" or href is "" then "html" else href))
-    animateParam =
-      scrollTop: target.offset().top
+  notEle = "a[href=#], .noAnimateAnchor";
+  $("a[href^=#]").not(notEle).on("click", me.moveAnchor);
 
-    $("html, body").animate(animateParam, speed, easing);
+me.moveAnchor = ->
+  href = $(this).attr("href")
+  speed = 500
+  easing = 'swing'
+  target = $((if href is "#" or href is "" then "html" else href))
+  animateParam =
+    scrollTop: target.offset().top
 
-    return false;
+  $("html, body").animate(animateParam, speed, easing);
 
-  return
-) window, app, jQuery
+  return false;
+
+module.exports = me

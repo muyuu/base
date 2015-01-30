@@ -1,50 +1,41 @@
-(($, _, w, app) ->
+$ = require 'jquery'
+_ = require 'underscore'
 
-  ###*
-   * tab module
-   * this module is dependent on jQuery, Underscore.js
-   * @prop {array} instance
-   * @namespace
-  ###
-  me = app.tab = app.tab || {}
-
-
-  ###*
-   * default root element
-  ###
-  me.defaultRootElement = '.tab'
-
-
-  ###*
-   * box each tab element instances
-   * @type {Array}
-  ###
-  me.instance = []
+###*
+* tab module
+* this module is dependent on jQuery, Underscore.js
+* @prop {string} rootElement default root element class or id
+* @prop {array} instance
+* @namespace
+###
+me =
+  rootElement: '.tab'  # default root element
+  instance: [] # box each tab element instances
 
 
   ###*
    * make instance and push array
    * @param {object} param
   ###
-  me.set = (param) ->
+  set: (param) ->
     param = param || {}
     if param.root?
       $self = $ param.root
     else
-      $self = $(me.defaultRootElement)
+      $self = $ me.rootElement
 
     _.each $self, (val, key) ->
-      me.instance.push new Const(param, val)
+      me.instance.push new Factory(param, val)
     return
 
 
-  ###*
-   * constructor
-   * @type {Function}
-  ###
-  Const = me.Make
 
-  Const = (param, root) ->
+###*
+ * constructor
+ * @type {Function}
+###
+class Factory
+  constructor: (@param, @root) ->
     ins = this
 
     # -----------------------
@@ -66,41 +57,30 @@
     # options
     # -----------------------
     @opt =
-      root: me.defaultRootElement
+      root: me.rootElement
       tab: ".tab__head"
       item: ".tab__item"
       body: ".tab__body"
       content: ".tab__content"
       currentClass: "is-current"
+      animation: true
 
     # set options from parameter
-    @setOption(param)
+    @setOption(@param)
 
-
-    # -----------------------
     # setting dom jQuery elements
-    # -----------------------
-    @setElement(root)
+    @setElement(@root)
 
-
-    # -----------------------
     # init
-    # -----------------------
-    if ins.hasHash()
-      ins.setCurrent()
+    @setHash()
+    @setCurrent()
+    @changeTab()
 
-    ins.changeTab()
-
-
-    # -----------------------
     # event
-    # -----------------------
-    @$item.on "click", ->
+    @$item.on "click", "a", ->
       ins.setCurrent(@)
       ins.changeTab()
       return false
-
-    return
 
 
 
@@ -108,7 +88,7 @@
    * set option
    * @returns {boolean}
   ###
-  Const::setOption = (param)->
+  setOption: (param)->
     ins = @
 
     # set options from parameter
@@ -128,29 +108,36 @@
    * @param {string} root tab root html class name
    * @returns {boolean}
   ###
-  Const::setElement = (root)->
+  setElement: (root)->
 
     @$root = $(root)
     @$item = @$root.find(@opt.item)
     @$content = @$root.find(@opt.content)
+
     false
 
 
 
   ###*
    * check location hash
-   * @return {string} hash
+   * @return {boolean} has hash flg
   ###
-  Const::hasHash = ()->
-    one = this
-    opt = one.opt
+  hasHash: ()->
+    !!window.location.hash isnt ""
 
-    if w.location.hash isnt ""
-      one.hash = w.location.hash.replace("#", "")
-      return true
-    else
-      return false
+  ###*
+   * set location hash
+  ###
+  setHash: ()->
+    @hash = window.location.hash.replace("#", "") || null
 
+
+  ###*
+   * get location hash
+   * @return {string} this.hash
+  ###
+  getHash: ()->
+    @hash
 
 
   ###*
@@ -159,43 +146,49 @@
    * @param {object} [ele] current item element
    *
   ###
-  Const::setCurrent = (ele)->
-    one = this
-    opt = one.opt
+  setCurrent: (ele)->
 
     if ele?
-      one.current = $(ele).find('a').attr('href').replace("#", "")
-      one.currentIndex = $(ele).index()
+      @current = $(ele).attr('href').replace("#", "")
+      @currentIndex = $(ele).parents(@opt.item).index()
 
     else
       # hash を持つIDの要素があったらカレントを変更
-      if one.$root.find("#" + one.hash).index() isnt -1
-        one.current = one.hash
-        one.currentIndex = one.$root.find("#" + one.hash).index()
+      if @$root.find("#" + @hash).index() isnt -1
+        @current = @hash
+        @currentIndex = @$root.find("#" + @hash).index()
 
     false
 
-
+  ###*
+   * make classes at be have item & body
+   * @return {string} addedClass
+  ###
+  addedClass: ->
+    addedClass = @opt.currentClass
+    addedClass += " is-transition" if @opt.animation
 
   ###*
    * change tab
    * @return {boolean} false
   ###
-  Const::changeTab = ->
-    one = this
-    opt = one.opt
-
+  changeTab: ->
 
     # change hash
-    one.changeHash()
+    @changeHash()
 
     # change me class
-    one.$item.removeClass(opt.currentClass)
-    .eq(one.currentIndex).addClass(opt.currentClass)
+    @$item
+      .removeClass @addedClass()
+    .eq(@currentIndex)
+      .addClass @addedClass()
+
 
     # toggle display content
-    one.$content.hide().removeClass(opt.currentClass)
-    .eq(one.currentIndex).show().addClass(opt.currentClass)
+    @$content
+      .removeClass @addedClass()
+    .eq(@currentIndex)
+      .addClass @addedClass()
 
     false
 
@@ -203,13 +196,8 @@
   ###*
    * change hash
   ###
-  Const::changeHash = ->
-    one = this
-    opt = one.opt
-
-    # w.location.hash = one.current
-
+  changeHash: ->
+    #window.location.hash = @current
     false
 
-  return
-) jQuery, _, window, app
+module.exports = me

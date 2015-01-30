@@ -21,6 +21,7 @@
 
 
     &.is-current
+      display: block
       &:after
         position: absolute
         content: ""
@@ -37,4 +38,18 @@
         border-left-width: 1px
         -webkit-transform: rotate(45deg)
         transform: rotate(45deg)
+
+  &__content
+    //display: none
+    overflow: hidden
+    height: 0
+    +opacity(0)
+
+    &.is-current
+      //display: block
+      +opacity(1)
+      height: inherit
+    &.is-transition
+      transition: all .8s
+
 
