@@ -4,16 +4,15 @@ _ = require 'underscore'
 
 # require my modules
 ua = require './util/ua'
-anchorLink = require './anchorLink/anchorLink'
-gotoTop = require './goToTop/gotoTop'
-accordion = require './accordion/accordion'
-tab = require './tab/tab'
-bangs = require './bangs/bangs'
-modal = require './modal/modal'
-
+anchorLink = require './anchorLink'
+goToTop = require './goToTop'
+accordion = require './accordion'
+tab = require './tab'
+bangs = require './bangs'
+modal = require './modal'
 
 anchorLink.set()
-gotoTop.set()
+goToTop.set()
 
 accordion.set
   startCurrent: 1
@@ -28,3 +27,4 @@ bangs.set
 modal.set()
 # public method
 window.modalClose = modal.close
+
