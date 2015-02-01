@@ -5,6 +5,7 @@ It's boilerplate for Web frontend product.
 
 ## feature
 - module base JavaScript files.
+- build by browserify for CoffeeScript
 - modular css BEM base
 
 
@@ -15,13 +16,15 @@ It's boilerplate for Web frontend product.
 - adjust block height(named bangs)
 - toggle hide show goToTop link
 - modal (iframe only)
+- drop down
 
-## using package
+## build system
 - gulp
-- bower
-- Jade
-- Sass
-- CoffeeScript
+  - jade
+  - sass
+  - CoffeeScript
+  - browserify
+  - debowerify
 
 ## Using bower package
 - jQuery
@@ -63,9 +66,8 @@ Project_root
   src
     js
       module/
-        module.coffee
-      init.coffee
-      run.coffee
+        index.coffee
+      main.coffee
     css
       base/*.sass
       common/*.sass
@@ -78,10 +80,6 @@ Project_root
       dir
         index.jade
       index.jade
-  txt
-    index.json
-    dir
-      index.json
 ````
 
 
