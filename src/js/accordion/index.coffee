@@ -149,12 +149,10 @@ class Factory
    * @returns {boolean}
   ###
   open: ()->
-    ins = @
-
-    ins.$head.eq(@currentIndex)
+    @$head.eq(@currentIndex)
       .addClass @opt.openedClass
 
-    ins.$content.eq(@currentIndex)
+    @$content.eq(@currentIndex)
       .addClass(@opt.openedClass)
       .slideDown(@opt.duration)
     false
@@ -165,14 +163,12 @@ class Factory
    * @returns {boolean}
   ###
   close: ()->
-    ins = @
+    @$head.eq(@currentIndex)
+      .removeClass @opt.openedClass
 
-    ins.$head.eq(@currentIndex)
-      .removeClass ins.opt.openedClass
-
-    ins.$content.eq(@currentIndex)
-      .removeClass(ins.opt.openedClass)
-      .slideUp(ins.opt.duration)
+    @$content.eq(@currentIndex)
+      .removeClass(@opt.openedClass)
+      .slideUp(@opt.duration)
     false
 
 
@@ -195,14 +191,14 @@ class Factory
     if $(clickElement).hasClass(@opt.openedClass)
       # interlocking
       if @opt.interlocking
-        @closeAll(@opt.duration)
+        @closeAll()
       else
-        @close(@opt.duration)
+        @close()
     else
       # interlocking
       if @opt.interlocking
-        @closeAll(@opt.duration)
-      @open(@opt.duration)
+        @closeAll()
+      @open()
 
     false
 
