@@ -62,6 +62,9 @@ class Factory
       openedIconClass: "accordion__ico--close"
       closedIconClass: "accordion__ico--open"
 
+      # animation
+      duration: 400
+
       # variation
       startCurrent: null
       interlocking: false
@@ -153,7 +156,7 @@ class Factory
 
     ins.$content.eq(@currentIndex)
       .addClass(@opt.openedClass)
-      .slideDown()
+      .slideDown(@opt.duration)
     false
 
 
@@ -169,7 +172,7 @@ class Factory
 
     ins.$content.eq(@currentIndex)
       .removeClass(ins.opt.openedClass)
-      .slideUp()
+      .slideUp(ins.opt.duration)
     false
 
 
@@ -177,7 +180,7 @@ class Factory
   closeAll: ()->
     @$head.removeClass(@opt.openedClass)
     @$content.removeClass(@opt.openedClass)
-      .slideUp()
+      .slideUp(@opt.duration)
     false
 
 
@@ -192,14 +195,14 @@ class Factory
     if $(clickElement).hasClass(@opt.openedClass)
       # interlocking
       if @opt.interlocking
-        @closeAll()
+        @closeAll(@opt.duration)
       else
-        @close(clickElement)
+        @close(@opt.duration)
     else
       # interlocking
       if @opt.interlocking
-        @closeAll()
-      @open(clickElement)
+        @closeAll(@opt.duration)
+      @open(@opt.duration)
 
     false
 

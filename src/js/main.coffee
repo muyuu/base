@@ -18,6 +18,7 @@ goToTop.set()
 accordion.set()
 #  startCurrent: 1
 #  interlocking: true
+#  duration: 200
 
 tab.set()
 
