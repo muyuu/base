@@ -15,9 +15,9 @@ modal = require './modal'
 anchorLink.set()
 goToTop.set()
 
-accordion.set
-  startCurrent: 1
-  interlocking: true
+accordion.set()
+#  startCurrent: 1
+#  interlocking: true
 
 tab.set()
 
