@@ -15,10 +15,16 @@ modal = require './modal'
 anchorLink.set()
 goToTop.set()
 
-accordion.set()
+accordion.set
 #  startCurrent: 1
-#  interlocking: true
+  interlocking: true
 #  duration: 200
+  onOpen: ->
+    console.log 'open'
+  onClose: ->
+    console.log 'close'
+  onClick: ->
+    console.log 'click'
 
 tab.set()
 

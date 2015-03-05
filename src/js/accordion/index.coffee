@@ -69,6 +69,12 @@ class Factory
       startCurrent: null
       interlocking: false
 
+      # callback
+      onOpen: null
+      onClose: null
+      onClick: null
+      onAnimateEnd: null
+
     # set options from parameter
     @setOption(param)
 
@@ -155,6 +161,9 @@ class Factory
     @$content.eq(@currentIndex)
       .addClass(@opt.openedClass)
       .slideDown(@opt.duration)
+
+    if typeof @opt.onOpen is 'function'
+      @opt.onOpen()
     false
 
 
@@ -169,6 +178,9 @@ class Factory
     @$content.eq(@currentIndex)
       .removeClass(@opt.openedClass)
       .slideUp(@opt.duration)
+
+    if typeof @opt.onClose is 'function'
+      @opt.onClose()
     false
 
 
@@ -177,6 +189,9 @@ class Factory
     @$head.removeClass(@opt.openedClass)
     @$content.removeClass(@opt.openedClass)
       .slideUp(@opt.duration)
+
+    if typeof @opt.onClose is 'function'
+      @opt.onClose()
     false
 
 
@@ -187,6 +202,10 @@ class Factory
   toggle: (clickElement  = null)->
 
     @setCurrent(clickElement)
+
+    if typeof @opt.onClick is 'function'
+      @opt.onClick()
+
 
     if $(clickElement).hasClass(@opt.openedClass)
       # interlocking
