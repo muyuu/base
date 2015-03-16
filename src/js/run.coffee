@@ -20,8 +20,25 @@
 
     # use accordion
     app.accordion.set
+      root: ".accordion1"
+      head: ".accordion1__head"
+      body: ".accordion1__body"
       startCurrent: 1
       interlocking: true
+
+    app.accordion.set
+      root: ".accordion2"
+      head: ".accordion2__head"
+      body: ".accordion2__body"
+      startCurrent: 2
+      duration: 200
+      onClick: ()->
+        console.log 'click'
+      onOpen: ()->
+        console.log 'open'
+      onClose: ()->
+        console.log 'close'
+
     return
   )
   return

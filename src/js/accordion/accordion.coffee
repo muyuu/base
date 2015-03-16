@@ -1,7 +1,7 @@
 (($, _, w, app) ->
 
   ###*
-   * tab module
+   * accordion module
    * this module is dependent on jQuery, Underscore.js
    * @prop {array} instance
    * @namespace
@@ -34,7 +34,7 @@
       $self = $(me.defaultRootElement)
 
     _.each $self, (val, key) ->
-      me.instance.push new Const(param, val)
+      me.instance.push new Factory(param, val)
     return
 
 
@@ -42,9 +42,9 @@
    * constructor
    * @type {Function}
   ###
-  Const = me.Make
+  Factory = me.Make
 
-  Const = (param, root) ->
+  Factory = (param, root) ->
 
     # -----------------------
     # properties
@@ -73,9 +73,18 @@
       openedIconClass: "accordion__ico--close"
       closedIconClass: "accordion__ico--open"
 
+      # animation
+      duration: 400
+
       # variation
       startCurrent: null
       interlocking: false
+
+      # callback
+      onOpen: null
+      onClose: null
+      onClick: null
+      onAnimateEnd: null
 
     # set options from parameter
     @setOption(param)
@@ -100,16 +109,14 @@
    * set option
    * @returns {boolean}
   ###
-  Const::setOption = (param)->
-    ins = @
+  Factory::setOption = (param)->
+    self = @
 
     # set options from parameter
     _.each param, (paramVal, paramKey) ->
-
-      _.each ins.opt, (optVal, optKey) ->
-
+      _.each self.opt, (optVal, optKey) ->
         # set instance's option param
-        ins.opt[optKey] = paramVal  if paramKey is optKey
+        self.opt[optKey] = paramVal  if paramKey is optKey
         return
 
     return false
@@ -119,7 +126,7 @@
    * cache jQuery object
    * @returns {boolean}
   ###
-  Const::setElement = (root)->
+  Factory::setElement = (root)->
     @$root = $(root)
     @$head = @$root.find(@opt.head)
     @$content = @$root.find(@opt.body)
@@ -130,8 +137,8 @@
    * open body panel
    * @returns {boolean}
   ###
-  Const::init = ->
-    ins = @
+  Factory::init = ->
+    self = @
 
     @setCurrent()
 
@@ -151,22 +158,24 @@
     # event
     # -----------------------
     @$head.on "click", ->
-      ins.toggle(@)
+      self.toggle(@)
       false
 
   ###*
    * open body panel
    * @returns {boolean}
   ###
-  Const::open = ()->
-    ins = @
-
-    ins.$head.eq(@currentIndex)
+  Factory::open = ()->
+    self = @
+    @$head.eq(@currentIndex)
       .addClass @opt.openedClass
 
-    ins.$content.eq(@currentIndex)
+    @$content.eq(@currentIndex)
       .addClass(@opt.openedClass)
-      .slideDown()
+      .slideDown @opt.duration, ()->
+        # callback
+        if typeof self.opt.onOpen is 'function'
+          self.opt.onOpen()
     false
 
 
@@ -174,23 +183,32 @@
    * close body panel
    * @returns {boolean}
   ###
-  Const::close = ()->
-    ins = @
+  Factory::close = ()->
+    self = @
+    @$head.eq(@currentIndex)
+      .removeClass @opt.openedClass
 
-    ins.$head.eq(@currentIndex)
-      .removeClass ins.opt.openedClass
-
-    ins.$content.eq(@currentIndex)
-      .removeClass(ins.opt.openedClass)
-      .slideUp()
+    @$content.eq(@currentIndex)
+      .removeClass(@opt.openedClass)
+      .slideUp @opt.duration, ->
+        # callback
+        if typeof self.opt.onClose is 'function'
+          self.opt.onClose()
     false
 
 
 
-  Const::closeAll = ()->
+  Factory::closeAll = ()->
+    self = @
+    callbackFlg = false
     @$head.removeClass(@opt.openedClass)
     @$content.removeClass(@opt.openedClass)
-      .slideUp()
+      .slideUp @opt.duration, ->
+        if !callbackFlg
+          callbackFlg = true
+          # callback
+          if typeof self.opt.onClose is 'function'
+            self.opt.onClose()
     false
 
 
@@ -198,17 +216,21 @@
    * toggle accordion
    * @returns {boolean}
   ###
-  Const::toggle = (clickElement  = null)->
+  Factory::toggle = (clickElement  = null)->
 
     @setCurrent(clickElement)
 
-    # interlocking
-    if @opt.interlocking
-      @closeAll()
+    # callback
+    if typeof @opt.onClick is 'function'
+      @opt.onClick()
 
     if $(clickElement).hasClass(@opt.openedClass)
-      @close(clickElement)
+      @close()
     else
+      # interlocking
+      if @opt.interlocking
+        @closeAll()
+
       @open(clickElement)
     false
 
@@ -217,7 +239,7 @@
    * get current element index
    * @returns {number} current index
   ###
-  Const::setCurrent = (clickElement = null)->
+  Factory::setCurrent = (clickElement = null)->
 
     if clickElement
       @currentIndex = @$head.index(clickElement)

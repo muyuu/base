@@ -586,12 +586,12 @@ app = app || {};
 (function($, _, w, app) {
 
   /**
-   * tab module
+   * accordion module
    * this module is dependent on jQuery, Underscore.js
    * @prop {array} instance
    * @namespace
    */
-  var Const, me;
+  var Factory, me;
   me = app.accordion = app.accordion || {};
 
   /**
@@ -618,7 +618,7 @@ app = app || {};
       $self = $(me.defaultRootElement);
     }
     _.each($self, function(val, key) {
-      return me.instance.push(new Const(param, val));
+      return me.instance.push(new Factory(param, val));
     });
   };
 
@@ -626,8 +626,8 @@ app = app || {};
    * constructor
    * @type {Function}
    */
-  Const = me.Make;
-  Const = function(param, root) {
+  Factory = me.Make;
+  Factory = function(param, root) {
     this.$root = null;
     this.$head = null;
     this.$content = null;
@@ -641,8 +641,13 @@ app = app || {};
       openedClass: "js-isOpen",
       openedIconClass: "accordion__ico--close",
       closedIconClass: "accordion__ico--open",
+      duration: 400,
       startCurrent: null,
-      interlocking: false
+      interlocking: false,
+      onOpen: null,
+      onClose: null,
+      onClick: null,
+      onAnimateEnd: null
     };
     this.setOption(param);
     this.setElement(root);
@@ -653,13 +658,13 @@ app = app || {};
    * set option
    * @returns {boolean}
    */
-  Const.prototype.setOption = function(param) {
-    var ins;
-    ins = this;
+  Factory.prototype.setOption = function(param) {
+    var self;
+    self = this;
     _.each(param, function(paramVal, paramKey) {
-      return _.each(ins.opt, function(optVal, optKey) {
+      return _.each(self.opt, function(optVal, optKey) {
         if (paramKey === optKey) {
-          ins.opt[optKey] = paramVal;
+          self.opt[optKey] = paramVal;
         }
       });
     });
@@ -670,7 +675,7 @@ app = app || {};
    * cache jQuery object
    * @returns {boolean}
    */
-  Const.prototype.setElement = function(root) {
+  Factory.prototype.setElement = function(root) {
     this.$root = $(root);
     this.$head = this.$root.find(this.opt.head);
     this.$content = this.$root.find(this.opt.body);
@@ -681,9 +686,9 @@ app = app || {};
    * open body panel
    * @returns {boolean}
    */
-  Const.prototype.init = function() {
-    var ins;
-    ins = this;
+  Factory.prototype.init = function() {
+    var self;
+    self = this;
     this.setCurrent();
     this.$content.hide();
     if (this.opt.startCurrent !== null) {
@@ -691,7 +696,7 @@ app = app || {};
       this.$content.eq(this.opt.startCurrent).addClass(this.opt.openedClass).show();
     }
     return this.$head.on("click", function() {
-      ins.toggle(this);
+      self.toggle(this);
       return false;
     });
   };
@@ -700,11 +705,15 @@ app = app || {};
    * open body panel
    * @returns {boolean}
    */
-  Const.prototype.open = function() {
-    var ins;
-    ins = this;
-    ins.$head.eq(this.currentIndex).addClass(this.opt.openedClass);
-    ins.$content.eq(this.currentIndex).addClass(this.opt.openedClass).slideDown();
+  Factory.prototype.open = function() {
+    var self;
+    self = this;
+    this.$head.eq(this.currentIndex).addClass(this.opt.openedClass);
+    this.$content.eq(this.currentIndex).addClass(this.opt.openedClass).slideDown(this.opt.duration, function() {
+      if (typeof self.opt.onOpen === 'function') {
+        return self.opt.onOpen();
+      }
+    });
     return false;
   };
 
@@ -712,16 +721,30 @@ app = app || {};
    * close body panel
    * @returns {boolean}
    */
-  Const.prototype.close = function() {
-    var ins;
-    ins = this;
-    ins.$head.eq(this.currentIndex).removeClass(ins.opt.openedClass);
-    ins.$content.eq(this.currentIndex).removeClass(ins.opt.openedClass).slideUp();
+  Factory.prototype.close = function() {
+    var self;
+    self = this;
+    this.$head.eq(this.currentIndex).removeClass(this.opt.openedClass);
+    this.$content.eq(this.currentIndex).removeClass(this.opt.openedClass).slideUp(this.opt.duration, function() {
+      if (typeof self.opt.onClose === 'function') {
+        return self.opt.onClose();
+      }
+    });
     return false;
   };
-  Const.prototype.closeAll = function() {
+  Factory.prototype.closeAll = function() {
+    var callbackFlg, self;
+    self = this;
+    callbackFlg = false;
     this.$head.removeClass(this.opt.openedClass);
-    this.$content.removeClass(this.opt.openedClass).slideUp();
+    this.$content.removeClass(this.opt.openedClass).slideUp(this.opt.duration, function() {
+      if (!callbackFlg) {
+        callbackFlg = true;
+        if (typeof self.opt.onClose === 'function') {
+          return self.opt.onClose();
+        }
+      }
+    });
     return false;
   };
 
@@ -729,17 +752,20 @@ app = app || {};
    * toggle accordion
    * @returns {boolean}
    */
-  Const.prototype.toggle = function(clickElement) {
+  Factory.prototype.toggle = function(clickElement) {
     if (clickElement == null) {
       clickElement = null;
     }
     this.setCurrent(clickElement);
-    if (this.opt.interlocking) {
-      this.closeAll();
+    if (typeof this.opt.onClick === 'function') {
+      this.opt.onClick();
     }
     if ($(clickElement).hasClass(this.opt.openedClass)) {
-      this.close(clickElement);
+      this.close();
     } else {
+      if (this.opt.interlocking) {
+        this.closeAll();
+      }
       this.open(clickElement);
     }
     return false;
@@ -749,7 +775,7 @@ app = app || {};
    * get current element index
    * @returns {number} current index
    */
-  Const.prototype.setCurrent = function(clickElement) {
+  Factory.prototype.setCurrent = function(clickElement) {
     if (clickElement == null) {
       clickElement = null;
     }
@@ -1226,8 +1252,27 @@ app = app || {};
     app.tab.set();
     app.modal.set();
     app.accordion.set({
+      root: ".accordion1",
+      head: ".accordion1__head",
+      body: ".accordion1__body",
       startCurrent: 1,
       interlocking: true
+    });
+    app.accordion.set({
+      root: ".accordion2",
+      head: ".accordion2__head",
+      body: ".accordion2__body",
+      startCurrent: 2,
+      duration: 200,
+      onClick: function() {
+        return console.log('click');
+      },
+      onOpen: function() {
+        return console.log('open');
+      },
+      onClose: function() {
+        return console.log('close');
+      }
     });
   });
 })(jQuery, _, window, app);
