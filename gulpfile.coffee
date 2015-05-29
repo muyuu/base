@@ -9,7 +9,10 @@ mainBowerFiles = require 'main-bower-files'
 browserify = require 'browserify'
 source = require 'vinyl-source-stream'
 buffer = require 'vinyl-buffer'
+rename  = require 'gulp-rename'
+watchify    = require 'gulp-watchify'
 
+coffeeify    = require 'coffeeify'
 
 src = "./src/"
 dist = "./dist/"
@@ -63,8 +66,8 @@ g.task "connect", ->
     url: "http://localhost:3000"
     app: "Google Chrome"
 
-  g.src "#{d.html}index.html"
-    .pipe($.open "", options)
+  # g.src "#{d.html}index.html"
+  #   .pipe($.open "", options)
 
 
 # html
@@ -91,27 +94,32 @@ g.task "css", ->
 
 
 # js
-g.task "js", ->
-  browserify
-    entries: ["#{s.js}main.coffee"]
-    extensions: ['.coffee']
-  .bundle()
-  .pipe source "app.js"
-  .pipe buffer()
-    .pipe $.sourcemaps.init loadMaps: true
+g.task 'watchify', watchify (watchify)->
+  g.src "#{s.js}main.coffee"
+    .pipe $.plumber()
+    .pipe watchify
+      watch: on
+      extensions: ['.coffee']
+      transform : ['coffeeify']
+      debug: true
+    .pipe rename
+      basename: "app"
+      extname: ".js"
+    .pipe buffer()
+    .pipe $.sourcemaps.init
+      loadMaps: true
     .pipe $.uglify()
-    .pipe $.sourcemaps.write( './' )
-  .pipe g.dest "#{d.js}"
+    .pipe $.sourcemaps.write()
+    .pipe g.dest "#{d.js}"
 
 
 # watch
 g.task "watch", ->
   g.watch "#{s.html}**/*.jade", ["html"]
   g.watch "#{s.css}**/*.sass", ["css"]
-  g.watch "#{s.js}**/*.coffee", ["js"]
 
 
 # default task
-g.task "default", ->
-  g.start "connect", "watch"
+g.task "default", ['watchify'], ->
+  g.start ["connect", "watch"]
 
