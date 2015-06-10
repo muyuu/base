@@ -1,5 +1,11 @@
-$ = require 'jquery'
-_ = require 'underscore'
+if typeof require is 'function'
+  $ = require 'jquery'
+  _ = require 'underscore'
+else
+  $ = window.$
+  _ = window._
+
+
 
 ###*
  * accordion module
@@ -8,7 +14,7 @@ _ = require 'underscore'
  * @namespace
 ###
 me =
-  rootElement: '.accordion' # default root element
+  rootElement: '.js-acd' # default root element
   instance: [] # box each tab element instances
 
 
@@ -16,16 +22,17 @@ me =
    * make instance and push array
    * @param {object} param
   ###
-  set: (param) ->
-    param = param || {}
-    if param.root?
-      $self = $ param.root
+  set: (opt) ->
+    opt = opt || {}
+    if opt.root?
+      $self = $ opt.root
     else
+      opt.root = me.rootElement
       $self = $(me.rootElement)
 
-    _.each $self, (val, key) ->
-      me.instance.push new Factory(param, val)
-    return
+    me.instance = _.map $self, (v, k) ->
+      new Factory(opt, v)
+
 
 
 ###*
@@ -33,103 +40,49 @@ me =
  * @type {Function}
 ###
 class Factory
-  constructor: (param, root) ->
-
-    # -----------------------
-    # properties
-    # -----------------------
-    # dom jquery object
-    @$root = null
-    @$head = null
-    @$content = null
-
-    # current element
-    @currentElement = null
-    @currentIndex = 0
+  constructor: (opt, root) ->
+    ins = @
 
     # -----------------------
     # options
     # -----------------------
     @opt =
       # elements
-      parent: me.defaultRootElement
-      head: ".accordion__head"
-      body: ".accordion__body"
-      ico: ".accordion__ico"
+      root: opt.root
+      head: opt.head || ".js-acd__head"
+      body: opt.body || ".js-acd__body"
+      ico:  opt.ico || ".js-acd__ico"
 
       # class
-      openedClass: "js-isOpen"
-      openedIconClass: "accordion__ico--close"
-      closedIconClass: "accordion__ico--open"
+      openedClass: opt.opendClass || "js-isOpen"
+      openedIconClass: opt.opendIconClass || "js-acd__ico--close"
+      closedIconClass: opt.closedIconClass || "js-acd__ico--open"
 
       # animation
-      duration: 400
+      duration: if _.isUndefined(opt.duration) then 400 else opt.duration
 
       # variation
-      startCurrent: null
-      interlocking: false
+      startCurrent: if _.isUndefined(opt.startCurrent) then null else opt.startCurrent
+      interlocking: opt.interlocking || false
 
       # callback
-      onOpen: null
-      onClose: null
-      onClick: null
-      onAnimateEnd: null
-
-    # set options from parameter
-    @setOption(param)
+      onOpen: opt.onOpen || null
+      onClose: opt.onClose || null
+      onClick: opt.onClick || null
+      onAnimateEnd: opt.onAnimateEnd || null
 
 
     # -----------------------
-    # setting dom jQuery elements
+    # jQuery element
     # -----------------------
-    @setElement(root)
-
-
-    # -----------------------
-    # init
-    # -----------------------
-    @init()
-
-
-
-  ###*
-   * set option
-   * @returns {boolean}
-  ###
-  setOption: (param)->
-    ins = @
-
-    # set options from parameter
-    _.each param, (paramVal, paramKey) ->
-
-      _.each ins.opt, (optVal, optKey) ->
-
-        # set instance's option param
-        ins.opt[optKey] = paramVal  if paramKey is optKey
-        return
-
-    return false
-
-
-  ###*
-   * cache jQuery object
-   * @returns {boolean}
-  ###
-  setElement: (root)->
-    @$root = $(root)
+    # dom jquery object
+    @$root = $ root
     @$head = @$root.find(@opt.head)
     @$content = @$root.find(@opt.body)
-    false
 
 
-  ###*
-   * open body panel
-   * @returns {boolean}
-  ###
-  init: ->
-    ins = @
-
-    @setCurrent()
+    # current
+    @currentIndex = if _.isNull(@opt.startCurrent) then 0 else @opt.startCurrent
 
     @$content.hide()
 
@@ -150,6 +103,7 @@ class Factory
       ins.toggle(@)
       false
 
+
   ###*
    * open body panel
    * @returns {boolean}
@@ -162,7 +116,7 @@ class Factory
       .addClass(@opt.openedClass)
       .slideDown(@opt.duration)
 
-    if typeof @opt.onOpen is 'function'
+    if _.isFunction(@opt.onOpen)
       @opt.onOpen()
     false
 
@@ -179,7 +133,7 @@ class Factory
       .removeClass(@opt.openedClass)
       .slideUp(@opt.duration)
 
-    if typeof @opt.onClose is 'function'
+    if _.isFunction(@opt.onClose)
       @opt.onClose()
     false
 
@@ -190,7 +144,7 @@ class Factory
     @$content.removeClass(@opt.openedClass)
       .slideUp(@opt.duration)
 
-    if typeof @opt.onClose is 'function'
+    if _.isFunction(@opt.onClose)
       @opt.onClose()
     false
 
@@ -203,7 +157,7 @@ class Factory
 
     @setCurrent(clickElement)
 
-    if typeof @opt.onClick is 'function'
+    if _.isFunction(@opt.onClick)
       @opt.onClick()
 
 
@@ -226,11 +180,13 @@ class Factory
    * get current element index
    * @returns {number} current index
   ###
-  setCurrent: (clickElement = null)->
+  setCurrent: (clickElement)->
+    @currentIndex = @$head.index(clickElement)
 
-    if clickElement
-      @currentIndex = @$head.index(clickElement)
-    else
-      @currentIndex = @opt.startCurrent
 
-module.exports = me
+# exports
+if typeof module isnt 'undefined' and module.exports
+  module.exports = me
+else
+  if !window.acd
+    window.acd = me
