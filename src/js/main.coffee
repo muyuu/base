@@ -19,12 +19,12 @@ accordion.set
 #  startCurrent: 1
   interlocking: true
 #  duration: 200
-  onOpen: ->
-    console.log 'open'
-  onClose: ->
-    console.log 'close'
-  onClick: ->
-    console.log 'click'
+#  onOpen: ->
+#    console.log 'open'
+#  onClose: ->
+#    console.log 'close'
+#  onClick: ->
+#    console.log 'click'
 
 tab.set()
 
