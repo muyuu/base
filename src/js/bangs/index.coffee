@@ -1,5 +1,9 @@
-$ = require 'jquery'
-_ = require 'underscore'
+if typeof require is 'function'
+  $ = require 'jquery'
+  _ = require 'underscore'
+else
+  $ = window.$
+  _ = window._
 
 ###*
 * adjust height module
@@ -127,4 +131,11 @@ class Factory
     return false
 
 
-module.exports = me
+
+
+# exports
+if typeof module isnt 'undefined' and module.exports
+  module.exports = me
+else
+  if !window.bangs
+    window.bangs = me
