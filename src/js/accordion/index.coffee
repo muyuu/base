@@ -11,7 +11,7 @@
     $ = window.$
     _ = window._
 
-    root.anchorLink = definition(root, root.$, root._)
+    root.accordion = definition(root, root.$, root._)
 
 
 )((root, $, _)->
