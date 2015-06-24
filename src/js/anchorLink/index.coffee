@@ -9,7 +9,7 @@ me = anchorLink
 # init
 me.set = ->
 
-  notEle = "a[href=#], .noAnimateAnchor";
+  notEle = "a[href=#], .js-noAnchor";
   $("a[href^=#]").not(notEle).on("click", me.moveAnchor);
 
 me.moveAnchor = ->
@@ -24,4 +24,10 @@ me.moveAnchor = ->
 
   return false;
 
-module.exports = me
+
+# exports
+if typeof module isnt 'undefined' and module.exports
+  module.exports = me
+else
+  if !window.anchorLink
+    window.anchorLink = me
