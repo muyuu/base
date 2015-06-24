@@ -1,13 +1,13 @@
-.tab
-  ul.tab__head
-    li.tab__item
+.tab.js-tab
+  ul.tab__head.js-tab__head
+    li.tab__item.js-tab__item
       a.noAnimateAnchor(href="#install") インストール
-    li.tab__item
+    li.tab__item.js-tab__item
       a.noAnimateAnchor(href="#howtouse") 使い方
-    li.tab__item
+    li.tab__item.js-tab__item
       a.noAnimateAnchor(href="#option") オプション
-  ul.tabBody
-    li#install.tab__content
+  ul.tabBody.js-tab__body
+    li#install.tab__content.js-tab__content
       p htmlにタブを書く
       pre
         code
@@ -36,7 +36,7 @@
           | &lt;script src='/tab.js'&gt;&lt;/script&gt;
       p 準備は以上になります！
 
-    li#howtouse.tab__content
+    li#howtouse.tab__content.js-tab__content
       p タブとタブのコンテンツをラップした要素をセレクターに指定
       pre
         code
@@ -45,23 +45,23 @@
       p タブはデフォルトはセレクタ内の .tab__item 。
       p タブをラップする要素はデフォルトはセレクタ内の .tab 。変更したい場合はオプションを付与。
 
-    li#option.tab__content
+    li#option.tab__content.js-tab__content
       table.table
         tr
           th.table__th root
-          td.table__td タブの要素（デフォルトは .tab ）
+          td.table__td タブの要素（デフォルトは .js-tab ）
         tr
           th.table__th tab
-          td.table__td タブのラッパー（デフォルトは .tab__head ）
+          td.table__td タブのラッパー（デフォルトは .js-tab__head ）
         tr
           th.table__th item
-          td.table__td タブ（デフォルトは .tab__item ）
+          td.table__td タブ（デフォルトは .js-tab__item ）
         tr
           th.table__th body
-          td.table__td タブの中身のラッパー（デフォルトは tab__body ）
+          td.table__td タブの中身のラッパー（デフォルトは js-tab__body ）
         tr
           th.table__th content
-          td.table__td タブの中身（デフォルトは .tab__content ）
+          td.table__td タブの中身（デフォルトは .js-tab__content ）.js-tab__content
         tr
           th.table__th currentClass
           td.table__td カレントなタブとコンテンツに付与されるクラス（デフォルトは is-current ）

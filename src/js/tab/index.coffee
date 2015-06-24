@@ -1,5 +1,10 @@
-$ = require 'jquery'
-_ = require 'underscore'
+if typeof require is 'function'
+  $ = require 'jquery'
+  _ = require 'underscore'
+else
+  $ = window.$
+  _ = window._
+
 
 ###*
 * tab module
@@ -9,7 +14,7 @@ _ = require 'underscore'
 * @namespace
 ###
 me =
-  rootElement: '.tab'  # default root element
+  rootElement: '.js-tab'  # default root element
   instance: [] # box each tab element instances
 
 
@@ -24,9 +29,9 @@ me =
     else
       $self = $ me.rootElement
 
-    _.each $self, (val, key) ->
+    _.each $self, (val) ->
       me.instance.push new Factory(param, val)
-    return
+    return false
 
 
 
@@ -58,10 +63,10 @@ class Factory
     # -----------------------
     @opt =
       root: me.rootElement
-      tab: ".tab__head"
-      item: ".tab__item"
-      body: ".tab__body"
-      content: ".tab__content"
+      tab: ".js-tab__head"
+      item: ".js-tab__item"
+      body: ".js-tab__body"
+      content: ".js-tab__content"
       currentClass: "is-current"
       animation: true
 
@@ -98,7 +103,7 @@ class Factory
 
         # set instance's option param
         ins.opt[optKey] = paramVal  if paramKey is optKey
-        return
+        return false
 
     return false
 
@@ -200,4 +205,14 @@ class Factory
     #window.location.hash = @current
     false
 
-module.exports = me
+
+
+
+# exports
+if typeof module isnt 'undefined' and module.exports
+  module.exports = me
+else
+  if !window.tab
+    window.tab = me
+
+

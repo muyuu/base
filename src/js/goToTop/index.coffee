@@ -1,40 +1,45 @@
-$ = require 'jquery'
-_ = require 'underscore'
+( (definition)->
 
-gotoTop = {}
+  root = (typeof self == 'object' and self.self == self && self) or (typeof global == 'object' and global.global == global and global)
 
-# alias
-me = gotoTop
+  if typeof exports is "object"
+    $ = require 'jquery'
+    _ = require 'underscore'
 
-me =
-  ele: $(".goToTop")
-  disp:  false
-  dispScrollTop: 100
-  animateTime: 400
+    module.exports = definition(root, $, _)
+  else
+    $ = window.$
+    _ = window._
 
-#  position
-#  over the footer, right for window
-#    footerHeight: $('.pageFooter').outerHeight(true)
-#    copyrightHeight: $('.copyright').outerHeight(true)
-#    posOffset: 10
+    root.goToTop = definition(root, root.$, root._)
 
-#  me.ele.css
-#    "bottom": me.footerHeight + me.copyrightHeight + me.posOffset
 
-me.set = ->
-  if me.ele[0]
-    $(window).scroll ->
-      if $(window).scrollTop() > me.dispScrollTop
-        unless me.disp
-          me.ele.animate
-            opacity: 1
-          , me.animateTime
-          me.disp = true
-      else
-        if me.disp
-          me.ele.animate
-            opacity: 0
-          , me.animateTime
-          me.disp = false
+)((root, $, _)->
 
-module.exports = me
+  me =
+    ele: $(".goToTop")
+    disp:  false
+    dispScrollTop: 100
+    animateTime: 400
+
+  me.set = ->
+    if me.ele[0]
+      $(window).scroll ->
+        if $(window).scrollTop() > me.dispScrollTop
+          unless me.disp
+            me.ele.animate
+              opacity: 1
+            , me.animateTime
+            me.disp = true
+        else
+          if me.disp
+            me.ele.animate
+              opacity: 0
+            , me.animateTime
+            me.disp = false
+
+
+
+
+  return me
+)
