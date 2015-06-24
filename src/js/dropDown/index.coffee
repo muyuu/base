@@ -1,5 +1,10 @@
-$ = require 'jquery'
-_ = require 'underscore'
+if typeof require is 'function'
+  $ = require 'jquery'
+  _ = require 'underscore'
+else
+  $ = window.$
+  _ = window._
+
 
 ###*
 * drop down module
@@ -196,4 +201,10 @@ class Factory
     false
 
 
-module.exports = me
+
+# exports
+if typeof module isnt 'undefined' and module.exports
+  module.exports = me
+else
+  if !window.dropDown
+    window.dropDown = me
