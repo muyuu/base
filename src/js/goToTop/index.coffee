@@ -1,10 +1,15 @@
-$ = require 'jquery'
-_ = require 'underscore'
+if typeof require is 'function'
+  $ = require 'jquery'
+  _ = require 'underscore'
+else
+  $ = window.$
+  _ = window._
 
-gotoTop = {}
+
+goToTop = {}
 
 # alias
-me = gotoTop
+me = goToTop
 
 me =
   ele: $(".goToTop")
@@ -37,4 +42,14 @@ me.set = ->
           , me.animateTime
           me.disp = false
 
-module.exports = me
+
+
+
+# exports
+if typeof module isnt 'undefined' and module.exports
+  module.exports = me
+else
+  if !window.goToTop
+    window.goToTop = me
+
+    
