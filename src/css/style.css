@@ -846,7 +846,6 @@ select {
   border-top: 2px solid #333;
   border-right: 2px solid #333;
   -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 .dotBorder--allow .dotBorder__item:after {
@@ -873,7 +872,6 @@ select {
   border-top: 2px solid #333;
   border-right: 2px solid #333;
   -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 .dotBorder--allow-black .dotBorder__item:after {
@@ -913,18 +911,15 @@ select {
   border-top: 3px solid #333;
   border-right: 3px solid #333;
   -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 .iconList__arrow:after {
   -webkit-transform: rotate(135deg);
-  -ms-transform: rotate(135deg);
   transform: rotate(135deg);
   margin-top: -0.75em;
 }
 .iconList__arrow.currentTitle:after {
   -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 .iconList .icon {
@@ -1008,7 +1003,6 @@ select {
   border-top-width: 1px;
   border-left-width: 1px;
   -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 .tab__content {
@@ -1108,6 +1102,7 @@ select {
   height: 0;
   padding-top: 15px;
   background: url("../img/btn_buy01.png") no-repeat left top;
+  -webkit-background-size: 66px;
   background-size: 66px;
 }
 
@@ -1125,6 +1120,7 @@ select {
   display: inline-block;
   content: "";
   background: transparent no-repeat left top;
+  -webkit-background-size: contain;
   background-size: contain;
 }
 .ic--event:before, .ic--release:before, .ic--media:before, .ic--video:before, .ic--info:before {
@@ -1261,6 +1257,7 @@ body.js-noScroll {
 .m-modal__content {
   display: inline-block;
   background: #fff;
+  -webkit-border-radius: 8px;
   border-radius: 8px;
 }
 .m-modal__close {
@@ -1350,6 +1347,7 @@ body.js-noScroll {
   height: initial;
 }
 .dropDown--is-transition .dropDown__body {
+  -webkit-transition: all 0.4s;
   transition: all 0.4s;
 }
 
@@ -1410,3 +1408,5 @@ body.js-noScroll {
 .js-toggled-thumb.is-hide {
   display: none;
 }
+
+/*# sourceMappingURL=style.css.map */

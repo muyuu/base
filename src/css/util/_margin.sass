@@ -1,0 +1,25 @@
+
+// Helper
+//
+// html helper class
+//
+// Markup: - <p class="tar">テキストを右寄せにします</p>
+//
+// Styleguide 3
+.u
+
+  &-mg
+    &t
+      @each $qt in 0, 10, 20, 30, 40
+        &--#{$qt}
+          margin-top: $qt + px
+    &b
+      @each $qt in 0, 10, 20, 30, 40
+        &--#{$qt}
+          margin-bottom: $qt + px
+    &v
+      @each $qt in 0, 10, 20, 30, 40
+        &--#{$qt}
+          margin-top: $qt + px
+          margin-bottom: $qt + px
+
