@@ -7,17 +7,9 @@
     "node_modules"
   ],
   "dependencies": {
-    "jquery": "~1",
-    "underscore": "~1.7.0",
-    "fontawesome": "~4.2.0"
+    "fontawesome": "~4"
   },
   "overrides": {
-    "jquery": {
-      "main": ""
-    },
-    "underscore": {
-      "main": ""
-    },
     "fontawesome": {
       "main": [
         "./css/font-awesome.min.css",

@@ -1,5 +1,6 @@
 g = require "gulp"
 $ = require( 'gulp-load-plugins' )()
+minifyCss = require 'gulp-minify-css'
 
 # main bower files
 del = require 'del'
@@ -7,11 +8,9 @@ mainBowerFiles = require 'main-bower-files'
 
 # browserify
 browserify = require 'browserify'
-source = require 'vinyl-source-stream'
 buffer = require 'vinyl-buffer'
 rename = require 'gulp-rename'
 watchify = require 'gulp-watchify'
-
 coffeeify = require 'coffeeify'
 
 src = "./src/"
@@ -45,7 +44,7 @@ g.task 'clear-libs', ->
 
 g.task "bower", ['clear-libs'], ->
     cssFilter = $.filter "**/*.css"
-    fontsFilter = $.filter ["**/*.otf", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff"]
+    fontsFilter = $.filter ["**/*.otf", "**/*.eot", "**/*.svg", "**/*.ttf", "**/*.woff", "**/*.woff2"]
 
     g.src( mainBowerFiles() )
     .pipe( cssFilter )
@@ -66,8 +65,8 @@ g.task "connect", ->
         url: "http://localhost:3000"
         app: "Google Chrome"
 
-# g.src "#{d.html}index.html"
-#   .pipe($.open "", options)
+    g.src "#{d.html}index.html"
+    .pipe( $.open "", options )
 
 
 # html
@@ -85,24 +84,19 @@ g.task "html", ->
 # css
 g.task "css", ->
     g.src "#{s.css}style.sass"
+    .pipe $.sourcemaps.init()
     .pipe $.plumber()
-    .pipe $['rubySass']
-        style: "expanded"
-    .pipe g.dest( "#{s.css}" )
-
-
-g.task "cssPost", ->
-    g.src "#{s.css}style.css"
-    .pipe $.plumber()
-    .pipe( $.autoprefixer( {
-            browsers: [
-                'last 2 versions'
-                'ie >= 7'
-            ]
-            cascade: false
-        } ) )
+    .pipe $.sass
+        outputStyle: 'expanded'
+    .pipe $.autoprefixer( [
+        'last 3 versions'
+        'Explorer >= 8'
+    ] )
+#    .pipe $.csscomb()
+#    .pipe minifyCss
+#        compatibility: 'ie8'
+    .pipe $.sourcemaps.write()
     .pipe g.dest( "#{d.css}" )
-    .pipe $.connect.reload()
 
 
 # js
@@ -129,7 +123,6 @@ g.task 'watchify', watchify ( watchify )->
 g.task "watch", ->
     g.watch "#{s.html}**/*.jade", ["html"]
     g.watch "#{s.css}**/*.sass", ["css"]
-    g.watch "#{s.css}style.css", ["cssPost"]
 
 
 # default task
