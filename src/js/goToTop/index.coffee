@@ -17,7 +17,7 @@
 )((root, $, _)->
 
   me =
-    ele: $(".goToTop")
+    ele: $(".l-goToTop")
     disp:  false
     dispScrollTop: 100
     animateTime: 400
